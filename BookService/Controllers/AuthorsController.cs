@@ -1,46 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BookService.Models;
 using BookService.Filters;
+using BookService.Extensions;
+using System;
+using System.Collections.Generic;
 
 namespace BookService.Controllers
 {
-    [AuthFilterAttribute]
+    [AuthFilter]
     public class AuthorsController : ApiController
     {
         private BookServiceContext db = new BookServiceContext();
 
         // GET: api/Authors
-        public IQueryable<Author> GetAuthors()
+        public IEnumerable<AuthorDto> GetAuthors()
         {
-            return db.Authors;
+            return Authors().Select(MapToDto);
         }
 
+
         // GET: api/Authors/5
-        [ResponseType(typeof(Author))]
+        [ResponseType(typeof(AuthorDto))]
         public async Task<IHttpActionResult> GetAuthor(int id)
         {
-            Author author = await db.Authors.FindAsync(id);
+            Author author = await Authors().Where(a => a.Id == id).FirstAsync();
             if (author == null)
             {
                 return NotFound();
             }
 
-            return Ok(author);
+            return Ok(MapToDto(author));
         }
 
         // PUT: api/Authors/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAuthor(int id, Author author)
+        public async Task<IHttpActionResult> PutAuthor(int id, AuthorDto author)
         {
             if (!ModelState.IsValid)
             {
@@ -52,47 +52,46 @@ namespace BookService.Controllers
                 return BadRequest();
             }
 
-            db.Entry(author).State = EntityState.Modified;
-
-            try
+            var existing = await Authors().Where(a => a.Id == id).FirstAsync();
+            if (existing == null)
             {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AuthorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
+            existing.Name = author.Name;
+                                    
+            await db.SaveChangesAsync();
+                        
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Authors
-        [ResponseType(typeof(Author))]
-        public async Task<IHttpActionResult> PostAuthor(Author author)
+        [ResponseType(typeof(AuthorDto))]
+        public async Task<IHttpActionResult> PostAuthor(AuthorDto author)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Authors.Add(author);
+            var entity = new Author
+            {
+                Name = author.Name,
+                EnvironmentId = Request.GetUserAccessToken()
+            };
+
+            db.Authors.Add(entity);
+
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = author.Id }, author);
+            return CreatedAtRoute("DefaultApi", new { id = author.Id }, MapToDto(entity));
         }
 
         // DELETE: api/Authors/5
-        [ResponseType(typeof(Author))]
+        [ResponseType(typeof(AuthorDto))]
         public async Task<IHttpActionResult> DeleteAuthor(int id)
         {
-            Author author = await db.Authors.FindAsync(id);
+            Author author = await Authors().Where(a => a.Id == id).FirstAsync();
             if (author == null)
             {
                 return NotFound();
@@ -101,7 +100,7 @@ namespace BookService.Controllers
             db.Authors.Remove(author);
             await db.SaveChangesAsync();
 
-            return Ok(author);
+            return Ok(MapToDto(author));
         }
 
         protected override void Dispose(bool disposing)
@@ -113,9 +112,19 @@ namespace BookService.Controllers
             base.Dispose(disposing);
         }
 
-        private bool AuthorExists(int id)
+        private IQueryable<Author> Authors()
         {
-            return db.Authors.Count(e => e.Id == id) > 0;
+            return db.Authors.FilterEnvironment(Request.GetUserAccessToken());
         }
+        
+        private AuthorDto MapToDto(Author author)
+        {
+            return new AuthorDto
+            {
+                Id = author.Id,
+                Name = author.Name
+            };
+        }
+
     }
 }

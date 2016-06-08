@@ -21,7 +21,7 @@
             type: method,
             url: uri,
             dataType: 'json',
-            headers: { "x-user-token":"1234" },
+            headers: { "x-user-token": window.accessToken },
             contentType: 'application/json',
             data: data ? JSON.stringify(data) : null
         }).fail(function (jqXHR, textStatus, errorThrown) {

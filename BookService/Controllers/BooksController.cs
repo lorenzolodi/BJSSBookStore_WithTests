@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BookService.Models;
 using BookService.Filters;
+using BookService.Extensions;
 
 namespace BookService.Controllers
 {
-    [AuthFilterAttribute]
+    [AuthFilter]
     public class BooksController : ApiController
     {
         private BookServiceContext db = new BookServiceContext();
@@ -22,37 +19,25 @@ namespace BookService.Controllers
         // GET: api/Books
         public IQueryable<BookDTO> GetBooks()
         {
-            var books = from b in db.Books
-                        select new BookDTO()
-                        {
-                            Id = b.Id,
-                            Title = b.Title,
-                            AuthorName = b.Author.Name
-                        };
-
-            return books;
+            return Books().Select(b => new BookDTO()
+            {
+                Id = b.Id,
+                Title = b.Title,
+                AuthorName = b.Author.Name
+            });
         }
 
         [ResponseType(typeof(BookDetailDTO))]
         public async Task<IHttpActionResult> GetBook(int id)
         {
-            var book = await db.Books.Include(b => b.Author).Select(b =>
-                new BookDetailDTO()
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    Year = b.Year,
-                    Price = b.Price,
-                    AuthorName = b.Author.Name,
-                    Genre = b.Genre
-                }).SingleOrDefaultAsync(b => b.Id == id);
+            var book = await Books().Include(b => b.Author).SingleOrDefaultAsync(b => b.Id == id);
             if (book == null)
             {
                 return NotFound();
             }
 
-            return Ok(book);
-        }
+            return Ok(MapToDetailDto(book));
+        }              
 
         // PUT: api/Books/5
         [ResponseType(typeof(void))]
@@ -68,24 +53,21 @@ namespace BookService.Controllers
                 return BadRequest();
             }
 
-            db.Entry(book).State = EntityState.Modified;
-
-            try
+            var existing = await Books().Where(a => a.Id == id).FirstAsync();
+            if (existing == null)
             {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
+            existing.AuthorId = book.AuthorId; // todo: make sure author is from this environment
+
+            existing.Title = book.Title;
+            existing.Year = book.Year;
+            existing.Genre = book.Genre;
+            existing.Price = book.Price; 
+            
+            await db.SaveChangesAsync();
+            
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -98,6 +80,8 @@ namespace BookService.Controllers
                 return BadRequest(ModelState);
             }
 
+            book.EnvironmentId = Request.GetUserAccessToken();
+
             db.Books.Add(book);
             await db.SaveChangesAsync();
 
@@ -108,7 +92,7 @@ namespace BookService.Controllers
             {
                 Id = book.Id,
                 Title = book.Title,
-                AuthorName = book.Author.Name
+                AuthorName = book.Author.Name,
             };
 
             return CreatedAtRoute("DefaultApi", new { id = book.Id }, dto);
@@ -118,7 +102,7 @@ namespace BookService.Controllers
         [ResponseType(typeof(Book))]
         public async Task<IHttpActionResult> DeleteBook(int id)
         {
-            Book book = await db.Books.FindAsync(id);
+            Book book = await Books().Where(a => a.Id == id).FirstAsync();
             if (book == null)
             {
                 return NotFound();
@@ -127,7 +111,7 @@ namespace BookService.Controllers
             db.Books.Remove(book);
             await db.SaveChangesAsync();
 
-            return Ok(book);
+            return Ok(MapToDetailDto(book));
         }
 
         protected override void Dispose(bool disposing)
@@ -139,9 +123,22 @@ namespace BookService.Controllers
             base.Dispose(disposing);
         }
 
-        private bool BookExists(int id)
+        private IQueryable<Book> Books()
         {
-            return db.Books.Count(e => e.Id == id) > 0;
+            return db.Books.FilterEnvironment(Request.GetUserAccessToken());
+        }
+
+        private static BookDetailDTO MapToDetailDto(Book b)
+        {
+            return new BookDetailDTO()
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Year = b.Year,
+                Price = b.Price,
+                AuthorName = b.Author.Name,
+                Genre = b.Genre
+            };
         }
     }
 }

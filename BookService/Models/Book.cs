@@ -2,7 +2,7 @@
 
 namespace BookService.Models
 {
-    public class Book
+    public class Book : EnvironmentEntity
     {
         public int Id { get; set; }
         [Required]

@@ -166,7 +166,6 @@
     <Compile Include="Models\Author.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\AuthorDto.cs" />
     <Compile Include="Models\Book.cs">
       <SubType>Code</SubType>
     </Compile>

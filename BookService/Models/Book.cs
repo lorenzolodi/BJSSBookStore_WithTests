@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace BookService.Models
 {
@@ -14,6 +15,7 @@ namespace BookService.Models
         // Foreign Key
         public int AuthorId { get; set; }
         // Navigation property
+        [IgnoreDataMember]
         public Author Author { get; set; }
     }
 }

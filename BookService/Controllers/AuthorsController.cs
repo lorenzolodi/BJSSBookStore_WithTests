@@ -19,14 +19,14 @@ namespace BookService.Controllers
         private BookServiceContext db = new BookServiceContext();
 
         // GET: api/Authors
-        public IEnumerable<AuthorDto> GetAuthors()
+        public IEnumerable<Author> GetAuthors()
         {
-            return Authors().Select(MapToDto);
+            return Authors();
         }
 
 
         // GET: api/Authors/5
-        [ResponseType(typeof(AuthorDto))]
+        [ResponseType(typeof(Author))]
         public async Task<IHttpActionResult> GetAuthor(int id)
         {
             Author author = await Authors().Where(a => a.Id == id).FirstAsync();
@@ -35,12 +35,12 @@ namespace BookService.Controllers
                 return NotFound();
             }
 
-            return Ok(MapToDto(author));
+            return Ok(author);
         }
 
         // PUT: api/Authors/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAuthor(int id, AuthorDto author)
+        public async Task<IHttpActionResult> PutAuthor(int id, Author author)
         {
             if (!ModelState.IsValid)
             {
@@ -59,15 +59,15 @@ namespace BookService.Controllers
             }
 
             existing.Name = author.Name;
-                                    
+
             await db.SaveChangesAsync();
-                        
+
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Authors
-        [ResponseType(typeof(AuthorDto))]
-        public async Task<IHttpActionResult> PostAuthor(AuthorDto author)
+        [ResponseType(typeof(Author))]
+        public async Task<IHttpActionResult> PostAuthor(Author author)
         {
             if (!ModelState.IsValid)
             {
@@ -84,11 +84,11 @@ namespace BookService.Controllers
 
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = author.Id }, MapToDto(entity));
+            return CreatedAtRoute("DefaultApi", new { id = author.Id }, entity);
         }
 
         // DELETE: api/Authors/5
-        [ResponseType(typeof(AuthorDto))]
+        [ResponseType(typeof(Author))]
         public async Task<IHttpActionResult> DeleteAuthor(int id)
         {
             Author author = await Authors().Where(a => a.Id == id).FirstAsync();
@@ -100,7 +100,7 @@ namespace BookService.Controllers
             db.Authors.Remove(author);
             await db.SaveChangesAsync();
 
-            return Ok(MapToDto(author));
+            return Ok(author);
         }
 
         protected override void Dispose(bool disposing)
@@ -115,15 +115,6 @@ namespace BookService.Controllers
         private IQueryable<Author> Authors()
         {
             return db.Authors.FilterEnvironment(Request.GetUserAccessToken());
-        }
-        
-        private AuthorDto MapToDto(Author author)
-        {
-            return new AuthorDto
-            {
-                Id = author.Id,
-                Name = author.Name
-            };
         }
 
     }

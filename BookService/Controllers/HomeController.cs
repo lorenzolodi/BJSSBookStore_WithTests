@@ -82,7 +82,7 @@ namespace BookService.Controllers
             return RedirectToAction("Environment", new { id = env.Id });
         }
 
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(string username, string password, Guid? environmentId)
         {
             ViewBag.Title = "BJSS Book Store";
 
@@ -91,7 +91,9 @@ namespace BookService.Controllers
                 FormsAuthentication.SetAuthCookie("welldone", true);
             }
 
-            return RedirectToAction("Index");
+            return environmentId.HasValue ? 
+                RedirectToAction("Environment", new { Id = environmentId.Value }) : 
+                RedirectToAction("Index");
         }
     }
 }

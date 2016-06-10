@@ -26,6 +26,7 @@
                 @if (!User.Identity.IsAuthenticated)
                 {
                 <form class="navbar-form navbar-right" method="post" role="search" action="/home/login">
+                    <input type="hidden" name="environmentId" value="@ViewBag.EnvironmentId">
                     <div class="form-group">
                         <input type="text" class="form-control" name="username" placeholder="Username">
                     </div>

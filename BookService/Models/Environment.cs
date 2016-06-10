@@ -7,7 +7,11 @@ namespace BookService.Models
 {
     public class Environment
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } 
+        
+        public Environment(){
+            this.Id = Guid.NewGuid();
+        }
         
     }    
 }

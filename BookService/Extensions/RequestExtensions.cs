@@ -16,7 +16,7 @@ namespace BookService.Extensions
 
             Guid token;
 
-            if (Guid.TryParse(tokenStrings?.FirstOrDefault(), out token)) {
+            if (Guid.TryParse(tokenStrings.FirstOrDefault(), out token)) {
                 return token;
             }
 

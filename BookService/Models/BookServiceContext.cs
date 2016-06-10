@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
@@ -18,11 +19,20 @@ namespace BookService.Models
         public BookServiceContext() : base("name=BookServiceContext")
         {
             this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
 
         public System.Data.Entity.DbSet<BookService.Models.Author> Authors { get; set; }
 
         public System.Data.Entity.DbSet<BookService.Models.Book> Books { get; set; }
-    
+
+        public System.Data.Entity.DbSet<BookService.Models.Environment> Environments { get; set; }
+
     }
 }

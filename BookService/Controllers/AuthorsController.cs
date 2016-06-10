@@ -1,35 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BookService.Models;
 using BookService.Filters;
+using BookService.Extensions;
+using System;
+using System.Collections.Generic;
 
 namespace BookService.Controllers
 {
-    [AuthFilterAttribute]
+    [AuthFilter]
     public class AuthorsController : ApiController
     {
         private BookServiceContext db = new BookServiceContext();
 
         // GET: api/Authors
-        public IQueryable<Author> GetAuthors()
+        public IEnumerable<Author> GetAuthors()
         {
-            return db.Authors;
+            return Authors();
         }
+
 
         // GET: api/Authors/5
         [ResponseType(typeof(Author))]
         public async Task<IHttpActionResult> GetAuthor(int id)
         {
-            Author author = await db.Authors.FindAsync(id);
+            Author author = await Authors().Where(a => a.Id == id).FirstAsync();
             if (author == null)
             {
                 return NotFound();
@@ -52,23 +52,15 @@ namespace BookService.Controllers
                 return BadRequest();
             }
 
-            db.Entry(author).State = EntityState.Modified;
+            var existing = await Authors().Where(a => a.Id == id).FirstAsync();
+            if (existing == null)
+            {
+                return NotFound();
+            }
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AuthorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            existing.Name = author.Name;
+
+            await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -82,17 +74,24 @@ namespace BookService.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Authors.Add(author);
+            var entity = new Author
+            {
+                Name = author.Name,
+                EnvironmentId = Request.GetUserAccessToken()
+            };
+
+            db.Authors.Add(entity);
+
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = author.Id }, author);
+            return CreatedAtRoute("DefaultApi", new { id = author.Id }, entity);
         }
 
         // DELETE: api/Authors/5
         [ResponseType(typeof(Author))]
         public async Task<IHttpActionResult> DeleteAuthor(int id)
         {
-            Author author = await db.Authors.FindAsync(id);
+            Author author = await Authors().Where(a => a.Id == id).FirstAsync();
             if (author == null)
             {
                 return NotFound();
@@ -113,9 +112,10 @@ namespace BookService.Controllers
             base.Dispose(disposing);
         }
 
-        private bool AuthorExists(int id)
+        private IQueryable<Author> Authors()
         {
-            return db.Authors.Count(e => e.Id == id) > 0;
+            return db.Authors.FilterEnvironment(Request.GetUserAccessToken());
         }
+
     }
 }

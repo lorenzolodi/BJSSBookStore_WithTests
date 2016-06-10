@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace BookService.Models
 {
-    public class Book
+    public class Book : EnvironmentEntity
     {
         public int Id { get; set; }
         [Required]
@@ -14,6 +15,7 @@ namespace BookService.Models
         // Foreign Key
         public int AuthorId { get; set; }
         // Navigation property
+        [IgnoreDataMember]
         public Author Author { get; set; }
     }
 }

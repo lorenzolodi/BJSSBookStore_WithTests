@@ -12,6 +12,8 @@ using BookService.Extensions;
 namespace BookService.Controllers
 {
     [AuthFilter]
+    [AllowAnonymous]
+    [RequireHttps]
     public class BooksController : ApiController
     {
         private BookServiceContext db = new BookServiceContext();
@@ -27,6 +29,9 @@ namespace BookService.Controllers
             });
         }
 
+        //<summary>
+        //Gets a list of books
+        //</summary>
         [ResponseType(typeof(BookDetailDTO))]
         public async Task<IHttpActionResult> GetBook(int id)
         {
@@ -55,6 +60,12 @@ namespace BookService.Controllers
 
             var existing = await Books().Where(a => a.Id == id).FirstAsync();
             if (existing == null)
+            {
+                return NotFound();
+            }
+
+            var authorexists = await Authors().Where(a => a.Id == book.AuthorId).FirstAsync();
+            if (authorexists == null)
             {
                 return NotFound();
             }
@@ -126,6 +137,11 @@ namespace BookService.Controllers
         private IQueryable<Book> Books()
         {
             return db.Books.FilterEnvironment(Request.GetUserAccessToken());
+        }
+
+        private IQueryable<Author> Authors()
+        {
+            return db.Authors.FilterEnvironment(Request.GetUserAccessToken());
         }
 
         private static BookDetailDTO MapToDetailDto(Book b)

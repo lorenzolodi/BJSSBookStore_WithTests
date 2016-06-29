@@ -1,6 +1,16 @@
 ﻿@section scripts {
   <script>
       window.accessToken = "@ViewBag.EnvironmentId";
+
+      function BeginClient(xhr) {
+          xhr.setRequestHeader('x-user-token', window.accessToken);
+      }
+      $.ajaxSetup({
+          'beforeSend': function (xhr) {
+              xhr.setRequestHeader("x-user-token", window.accessToken);
+          }
+      });
+
   </script>
   @Scripts.Render("~/bundles/app")
 }

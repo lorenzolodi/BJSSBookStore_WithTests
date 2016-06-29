@@ -7,7 +7,8 @@ namespace BookService.Models
 {
     public class Environment
     {
-        public Guid Id { get; set; } 
+        public Guid Id { get; set; }
+        public bool SqlInjected { get; set; }
         
         public Environment(){
             this.Id = Guid.NewGuid();

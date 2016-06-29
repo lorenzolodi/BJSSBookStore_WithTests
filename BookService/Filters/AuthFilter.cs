@@ -25,7 +25,10 @@ namespace BookService.Filters
                 var environment = db.Environments.Find(environmentId);
                 if (environment == null)
                 {
-                    throw new HttpResponseException(HttpStatusCode.Forbidden);
+                    //throw new HttpResponseException(HttpStatusCode.Forbidden);
+                    var host = actionContext.Request.RequestUri.DnsSafeHost;
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.NotFound);
+                    actionContext.Response.Headers.Add("NoStore", string.Format("No store \"{0}\"", environmentId));
                 }
             }
                         

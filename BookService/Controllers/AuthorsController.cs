@@ -14,6 +14,8 @@ using System.Collections.Generic;
 namespace BookService.Controllers
 {
     [AuthFilter]
+    [AllowAnonymous]
+    [RequireHttps]
     public class AuthorsController : ApiController
     {
         private BookServiceContext db = new BookServiceContext();

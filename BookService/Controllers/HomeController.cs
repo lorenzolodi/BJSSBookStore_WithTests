@@ -6,26 +6,40 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using BookService.Extensions;
 
 namespace BookService.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private BookServiceContext db = new BookServiceContext();
 
+        [AllowAnonymous]
         public ActionResult Environment(Guid id)
         {
             ViewBag.Title = "BJSS Book Store";
             ViewBag.EnvironmentId = id;
+            
+
+            if (db.Environments.Find(id) == null)
+            {
+                return View("NotFound");
+            }
+
+            ViewBag.Injected = db.Environments.Find(id).SqlInjected;
 
             return View();
         }
 
+        [Authorize]
         public ActionResult Index()
         {
-            return View();
+            
+            return View(db.Environments.ToList());
         }
 
+        [Authorize]
         public ActionResult NewEnvironment()
         {
             var env = new Models.Environment();
@@ -82,18 +96,29 @@ namespace BookService.Controllers
             return RedirectToAction("Environment", new { id = env.Id });
         }
 
-        public ActionResult Login(string username, string password, Guid? environmentId)
+        [AllowAnonymous]
+        public ActionResult Login(string username, string password)
         {
-            ViewBag.Title = "BJSS Book Store";
 
-            if (username.ToLower().Replace(" ", "") == "'=''or1=1" && password.ToLower().Replace(" ", "") == "'=''or1=1")
+            try
             {
-                FormsAuthentication.SetAuthCookie("welldone", true);
-            }
+                Guid EnvironmentId;
+                string token = Request.Headers.GetValues("x-user-token").FirstOrDefault();
+                if (Guid.TryParse(token, out EnvironmentId))
+                {
 
-            return environmentId.HasValue ? 
-                RedirectToAction("Environment", new { Id = environmentId.Value }) : 
-                RedirectToAction("Index");
+                    if (username.ToLower().Replace(" ", "") == "'=''or1=1" && password.ToLower().Replace(" ", "") == "'=''or1=1")
+                    {
+                        BookService.Models.Environment e = db.Environments.Find(EnvironmentId);
+                        e.SqlInjected = true;
+                        db.SaveChanges();
+                        return PartialView("LoginBroken");
+                    }
+                }
+            }
+            catch { }
+
+            return PartialView("Login");
         }
     }
 }

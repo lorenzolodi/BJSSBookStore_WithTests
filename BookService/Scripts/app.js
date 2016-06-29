@@ -58,6 +58,7 @@
 
         ajaxHelper(booksUri, 'POST', book).done(function (item) {
             self.books.push(item);
+            self.newBook(null);
         });
     }
 
@@ -67,3 +68,4 @@
 };
 
 ko.applyBindings(new ViewModel());
+

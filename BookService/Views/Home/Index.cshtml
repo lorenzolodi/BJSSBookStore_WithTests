@@ -1,5 +1,43 @@
-﻿<div class="page-header">
-  <h1>BJSS Book Store Test</h1>
+﻿@model List<BookService.Models.Environment>
+
+<div class="page-header">
+  <h1>BJSS Book Store Test Environments</h1>
 </div>
 
-@Html.ActionLink("Create new test environment", "NewEnvironment")
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Environments</h2>
+            </div>
+            <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Environment ID</th>
+                                <th>SQL Injection?</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        
+                    @foreach(var env in Model)
+                    {
+                                                <tr>
+                                                    <td>@env.Id</td>
+                                                    <td>@env.SqlInjected</td>
+                                                    <td>@Html.ActionLink("Details", "Environment", new { id = env.Id })</td>
+                                                </tr>
+                    }
+
+                    </tbody>
+                        </table>
+
+                @Html.ActionLink("Create new test environment", "NewEnvironment")
+            </div>
+        </div>
+    </div>
+
+</div>
+

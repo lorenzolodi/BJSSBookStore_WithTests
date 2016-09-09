@@ -21,6 +21,7 @@ namespace BookServiceQA
             driver.Navigate().GoToUrl("https://localhost:44302");
             driver.FindElement(By.LinkText("Details")).Click();
             Thread.Sleep(2000);
+
             String pageHeader = driver.FindElement(By.TagName("h1")).Text;
             Assert.That(pageHeader, Is.EqualTo("BJSS Book Store"));    //Page header
         }
@@ -113,12 +114,6 @@ namespace BookServiceQA
                 Assert.That(driver.FindElements(By.ClassName("panel-title"))[1].Text, Is.EqualTo("Detail"));
             }
         }
-
-        /*
-        [AfterScenario]
-        public void CloseBrowser()
-        {
-            driver.Quit();
-        }*/
+        
     }
 }

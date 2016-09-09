@@ -74,7 +74,7 @@ namespace BookServiceQA
 #line 8
 this.ScenarioSetup(scenarioInfo);
 #line 9
- testRunner.Given("I am on the Book list screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am on the Book list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Author",
@@ -90,6 +90,10 @@ this.ScenarioSetup(scenarioInfo);
                         "9.99"});
 #line 10
  testRunner.And("I have entered the following values on the Add Book form", ((string)(null)), table1, "And ");
+#line 13
+ testRunner.When("I press Submit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 14
+ testRunner.Then("the new book is displayed in the book list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -102,7 +106,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 16
 this.ScenarioSetup(scenarioInfo);
 #line 17
- testRunner.Given("I am on the Book list screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am on the Book list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Author",
@@ -114,7 +118,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Charles Dickens",
                         "Oliver Zest",
                         "1838.33",
-                        "Novel",
+                        "Horror",
                         "9.99"});
 #line 18
  testRunner.And("I have entered the following values on the Add Book form", ((string)(null)), table2, "And ");
@@ -133,15 +137,15 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("Charles Dickens", "", "1500", "Fiction", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Charles Dickens", "Oliver Nest", "", "Fiction", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Charles Dickens", "Oliver Nest", "1500", "Fiction", "", new string[0])]
-        public virtual void MandatoryFields(string vAuthor, string vTitle, string vYear, string vGenre, string vPrice, string[] exampleTags)
+        public virtual void MandatoryFields(string author, string title, string year, string genre, string price, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Mandatory fields", exampleTags);
 #line 25
 this.ScenarioSetup(scenarioInfo);
 #line 26
- testRunner.Given("I am on the Book list screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am on the Book list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 27
- testRunner.And("I have entered vAuthor, vTitle, vYear, vGenre, vPrice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I have entered \"{0}\", \"{1}\", {2}, \"{3}\", {4}", author, title, year, genre, price), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 28
  testRunner.When("I press Submit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 29

@@ -69,6 +69,7 @@
       <DependentUpon>BookList.feature</DependentUpon>
     </Compile>
     <Compile Include="BookListSteps.cs" />
+    <Compile Include="BrowserDriver.cs" />
     <Compile Include="NewBook.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

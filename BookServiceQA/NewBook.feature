@@ -6,31 +6,31 @@
 
 @SmokeTest
 Scenario: Add a new book
-	Given I am on the Book list screen
+	Given I am on the Book list page
 	And I have entered the following values on the Add Book form
 	| Author          | Title        | Year | Genre | Price |
 	| Charles Dickens | Oliver Twist | 1838 | Novel | 9.99  |
-#	When I press Submit
-#	Then the new book is displayed in the book list
+	When I press Submit
+	Then the new book is displayed in the book list
 
 Scenario: Decimal values are not allowed in the Year field
-	Given I am on the Book list screen
+	Given I am on the Book list page
 	And I have entered the following values on the Add Book form
 	| Author          | Title        | Year | Genre | Price |
-	| Charles Dickens | Oliver Zest | 1838.33 | Novel | 9.99  |
+	| Charles Dickens | Oliver Zest | 1838.33 | Horror | 9.99  |
 	When I press Submit
 	Then I will not be able to add the book
 	And an error message will be displayed
 
 Scenario Outline: Mandatory fields
-	Given I am on the Book list screen
-	And I have entered vAuthor, vTitle, vYear, vGenre, vPrice
+	Given I am on the Book list page
+	And I have entered "<Author>", "<Title>", <Year>, "<Genre>", <Price>
 	When I press Submit
 	Then I will not be able to add the book
 	And an error message will be displayed
 
 	Examples: 
-	| vAuthor         | vTitle      | vYear | vGenre  | vPrice |
+	| Author          | Title       | Year  | Genre   | Price  |
 	| Charles Dickens |             | 1500  | Fiction | 10     |
 	| Charles Dickens | Oliver Nest |       | Fiction | 10     |
 	| Charles Dickens | Oliver Nest | 1500  | Fiction |        |

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace BookServiceQA
 {
-    [Binding]
+    [Binding] 
     public class BookDetailsSteps
     {
         public IWebDriver driver;
@@ -115,5 +115,10 @@ namespace BookServiceQA
             }
         }
         
+        [AfterScenario("BookDetails")]
+        private void CloseBrowser()
+        {
+            driver.Quit();
+        }
     }
 }

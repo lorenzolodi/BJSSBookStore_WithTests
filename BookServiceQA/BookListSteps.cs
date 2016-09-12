@@ -49,11 +49,11 @@ namespace BookServiceQA
             String bookSection = driver.FindElements((By.CssSelector("h2")))[0].Text;
             Assert.That(bookSection, Is.EqualTo("Books"));              //Books frame
         }
-        /*
-        [AfterScenario]
-        public void CloseBrowser()
+        
+        [AfterScenario("ViewBookList")]
+        private void CloseBrowser()
         {
             driver.Quit();
-        }*/
+        }
     }
 }

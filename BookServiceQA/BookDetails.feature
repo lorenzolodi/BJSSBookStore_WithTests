@@ -3,7 +3,7 @@
 	As a librarian
 	I want to be able to view a full list of the available books
 
-@SmokeTest
+@SmokeTest @BookDetails
 Scenario: View book details
 	Given I am on the Book list screen
 	And at least one book exist in the system
@@ -17,6 +17,7 @@ Scenario: View book details
 	And the Genre field is displayed
 	And the Price field is displayed
 
+	@BookDetails
 Scenario: Home link
 	Given I am on the Book list screen
 	And at least one book exist in the system

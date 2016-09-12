@@ -67,10 +67,12 @@ namespace BookServiceQA
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("View book details")]
         [NUnit.Framework.CategoryAttribute("SmokeTest")]
+        [NUnit.Framework.CategoryAttribute("BookDetails")]
         public virtual void ViewBookDetails()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View book details", new string[] {
-                        "SmokeTest"});
+                        "SmokeTest",
+                        "BookDetails"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -101,20 +103,22 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Home link")]
+        [NUnit.Framework.CategoryAttribute("BookDetails")]
         public virtual void HomeLink()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Home link", ((string[])(null)));
-#line 20
-this.ScenarioSetup(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Home link", new string[] {
+                        "BookDetails"});
 #line 21
- testRunner.Given("I am on the Book list screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 22
- testRunner.And("at least one book exist in the system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I am on the Book list screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 23
- testRunner.And("I click on Details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("at least one book exist in the system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
- testRunner.When("I click on the Home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I click on Details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 25
+ testRunner.When("I click on the Home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
  testRunner.Then("the Detail frame is not displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

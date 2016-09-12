@@ -42,14 +42,39 @@ namespace BookServiceQA
             driver.FindElement(By.Id("inputPrice")).SendKeys(table.Rows[0]["Price"]);
         }
 
-        [Given]
-        public void Given_I_have_entered_P0_P1_P2_P3_P4(string p0, string p1, int p2, string p3, int p4)
+        [Given(@"I have entered (.*), (.*), (.*), (.*) and (.*)")]
+        public void GivenIHaveEnteredAnd(string author, string title, string year, string genre, string price)
         {
-            //new SelectElement(driver.FindElement(By.CssSelector("select"))).SelectByText(table.Rows[0]["Author"]);
-            //driver.FindElement(By.Id("inputTitle")).SendKeys(table.Rows[0]["Title"]);
-            //driver.FindElement(By.Id("inputYear")).SendKeys(table.Rows[0]["Year"]);
-            //driver.FindElement(By.Id("inputGenre")).SendKeys(table.Rows[0]["Genre"]);
-            //driver.FindElement(By.Id("inputPrice")).SendKeys(table.Rows[0]["Price"]);
+            new SelectElement(driver.FindElement(By.CssSelector("select"))).SelectByText(author);
+            if (title != "n/a")
+            {
+                driver.FindElement(By.Id("inputTitle")).SendKeys(title);
+            }
+            if (year != "n/a")
+            {
+                driver.FindElement(By.Id("inputYear")).SendKeys(year);
+            }
+            else
+            {
+                driver.FindElement(By.Id("inputYear")).SendKeys("1000");
+            }
+            if (price != "n/a")
+            {
+                driver.FindElement(By.Id("inputPrice")).SendKeys(price);
+            }
+            else
+            {
+                driver.FindElement(By.Id("inputPrice")).SendKeys("100");
+            }
+            driver.FindElement(By.Id("inputGenre")).SendKeys(genre);
+            if (year == "n/a")
+            {
+                driver.FindElement(By.Id("inputYear")).Clear();
+            }
+            if (price == "n/a")
+            {
+                driver.FindElement(By.Id("inputPrice")).Clear();
+            }
         }
 
         [When]
@@ -76,8 +101,14 @@ namespace BookServiceQA
         [Then]
         public void Then_an_error_message_will_be_displayed()
         {
-            //ScenarioContext.Current.Pending();
+            Assert.That(driver.FindElement(By.CssSelector("div[class=\"alert alert-danger\"]")).Displayed);
+            Assert.That(driver.FindElement(By.CssSelector("p[data-bind=\"text: error\"]")).Text, Is.EqualTo("Bad Request"));
         }
         
+        [AfterScenario("NewBook")]
+        private void CloseBrowser()
+        {
+            driver.Quit();
+        }
     }
 }

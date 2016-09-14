@@ -1,6 +1,9 @@
+String from B2
 
-This is the first string
 
+This is another string from B2
+
+Etc etc etc
 d
 f
 g

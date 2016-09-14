@@ -1,0 +1,16 @@
+<<<<<<< HEAD
+This is the change made from the branch B2
+=======
+This is a change made from B3
+>>>>>>> B3
+
+
+This is a new string
+
+<<<<<<< HEAD
+This us the change made from B2
+=======
+This is a change made from B3
+>>>>>>> B3
+
+This is a new string

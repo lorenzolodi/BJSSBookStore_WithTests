@@ -4,3 +4,8 @@ String from B2
 This is another string from B2
 
 Etc etc etc
+d
+f
+g
+h
+123

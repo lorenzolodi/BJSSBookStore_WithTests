@@ -1,5 +1,5 @@
 This is a change made from B3
-
+This is a new line
 
 This is a new string
 

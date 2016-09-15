@@ -1,5 +1,6 @@
 text
 from B1
 text
-from B1
-abc
+from B2
+tex
+

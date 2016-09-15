@@ -1,9 +1,0 @@
-text
-from B1
-text
-from B2
-abcd
-1234
-from B2
-from B1
-12345

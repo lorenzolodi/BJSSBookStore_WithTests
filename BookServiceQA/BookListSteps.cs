@@ -18,7 +18,8 @@ namespace BookServiceQA
         [Given]
         public void Given_I_have_accessed_the_BJSS_book_store()
         {
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(@"chromedriver_win32");
+            //driver = new ChromeDriver();
             //driver = new FirefoxDriver();
             //IWebDriver driver = new InternetExplorerDriver(@"C:\C#.Pluralsight\Selenium\lib"); 
             driver.Navigate().GoToUrl("https://localhost:44302");

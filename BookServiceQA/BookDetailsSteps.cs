@@ -17,7 +17,8 @@ namespace BookServiceQA
         [Given]
         public void Given_I_am_on_the_Book_list_screen()
         {
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(@"chromedriver_win32");
+            //driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://localhost:44302");
             driver.FindElement(By.LinkText("Details")).Click();
             Thread.Sleep(2000);
@@ -103,7 +104,7 @@ namespace BookServiceQA
         [Then]
         public void Then_the_Detail_frame_is_YES_NO_displayed(string yes_no)
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             //driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
             if (yes_no.Equals("not"))
             {

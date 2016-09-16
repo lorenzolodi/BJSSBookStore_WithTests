@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -19,7 +21,8 @@ namespace BookServiceQA
         [Given]
         public void Given_I_am_on_the_Book_list_page()
         {
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(@"chromedriver_win32");
+
             driver.Navigate().GoToUrl("https://localhost:44302");
             driver.FindElement(By.LinkText("Details")).Click();
             Thread.Sleep(2000);

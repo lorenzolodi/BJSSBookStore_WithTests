@@ -29,7 +29,7 @@ namespace BookService.Areas.HelpPage.Controllers
 
         public ActionResult Index(Guid? id)
         {
-            if (!User.Identity.IsAuthenticated)
+            if (UserIsAutherticated())
             {
                 if (id.HasValue)
                 {
@@ -40,6 +40,11 @@ namespace BookService.Areas.HelpPage.Controllers
             }
             ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();
             return View(Configuration.Services.GetApiExplorer().ApiDescriptions);
+        }
+
+        private bool UserIsAutherticated()
+        {
+            return !User.Identity.IsAuthenticated;
         }
 
         public ActionResult Api(string apiId)

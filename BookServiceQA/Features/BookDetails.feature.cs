@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace BookServiceQA
+namespace BookServiceQA.Features
 {
     using TechTalk.SpecFlow;
     

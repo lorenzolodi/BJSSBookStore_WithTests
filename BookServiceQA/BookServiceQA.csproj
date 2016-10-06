@@ -58,38 +58,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblySetupFixture.cs" />
-    <Compile Include="BookDetails.feature.cs">
+    <Compile Include="Features\BookDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookDetails.feature</DependentUpon>
     </Compile>
-    <Compile Include="BookDetailsSteps.cs" />
-    <Compile Include="BookList.feature.cs">
+    <Compile Include="StepDefinitions\BookDetailsSteps.cs" />
+    <Compile Include="Features\BookList.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookList.feature</DependentUpon>
     </Compile>
-    <Compile Include="BookListSteps.cs" />
+    <Compile Include="StepDefinitions\BookListSteps.cs" />
     <Compile Include="Browser.cs" />
-    <Compile Include="NewBook.feature.cs">
+    <Compile Include="Features\NewBook.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NewBook.feature</DependentUpon>
     </Compile>
-    <Compile Include="NewBookSteps.cs" />
+    <Compile Include="StepDefinitions\NewBookSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="BookDetails.feature">
+    <None Include="Features\BookDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookDetails.feature.cs</LastGenOutput>
     </None>
-    <None Include="BookList.feature">
+    <None Include="Features\BookList.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookList.feature.cs</LastGenOutput>
     </None>
-    <None Include="NewBook.feature">
+    <None Include="Features\NewBook.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NewBook.feature.cs</LastGenOutput>
     </None>

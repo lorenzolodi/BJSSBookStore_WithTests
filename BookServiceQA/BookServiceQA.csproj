@@ -57,7 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblySetupFixture.cs" />
+    <Compile Include="Support classes\AssemblySetupFixture.cs" />
     <Compile Include="Features\BookDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -70,7 +70,7 @@
       <DependentUpon>BookList.feature</DependentUpon>
     </Compile>
     <Compile Include="StepDefinitions\BookListSteps.cs" />
-    <Compile Include="Browser.cs" />
+    <Compile Include="Support classes\Browser.cs" />
     <Compile Include="Features\NewBook.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

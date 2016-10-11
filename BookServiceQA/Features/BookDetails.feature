@@ -1,6 +1,6 @@
 ﻿Feature: BookDetails
-	In order to manage the book store
 	As a librarian
+	In order to manage the book store
 	I want to be able to view a full list of the available books
 
 @SmokeTest @BookDetails

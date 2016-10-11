@@ -1,6 +1,6 @@
 ﻿Feature: NewBook
-	In order to keep the book store interesting
 	As a librarian
+	In order to keep the book store interesting
 	I want to be able to add a new book
 
 

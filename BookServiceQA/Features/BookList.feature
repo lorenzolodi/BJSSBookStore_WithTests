@@ -1,6 +1,6 @@
 ﻿Feature: BookList
-	In order to select a book
 	As a generic user
+	In order to select a book
 	I want to be able to view the entire book list
 
 @SmokeTest @ViewBookList

@@ -31,7 +31,7 @@ namespace BookServiceQA.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookList", "\tIn order to select a book\r\n\tAs a generic user\r\n\tI want to be able to view the en" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookList", "\tAs a generic user\r\n\tIn order to select a book\r\n\tI want to be able to view the en" +
                     "tire book list", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }

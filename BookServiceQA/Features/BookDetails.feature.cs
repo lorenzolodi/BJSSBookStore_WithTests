@@ -31,7 +31,7 @@ namespace BookServiceQA.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookDetails", "\tIn order to manage the book store\r\n\tAs a librarian\r\n\tI want to be able to view a" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookDetails", "\tAs a librarian\r\n\tIn order to manage the book store\r\n\tI want to be able to view a" +
                     " full list of the available books", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }

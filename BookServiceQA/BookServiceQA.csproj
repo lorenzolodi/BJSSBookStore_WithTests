@@ -57,7 +57,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pages\TestEnvironments.cs" />
+    <Compile Include="Pages\BookListPage.cs" />
+    <Compile Include="Pages\TestEnvironmentsPage.cs" />
     <Compile Include="Support classes\AssemblySetupFixture.cs" />
     <Compile Include="Features\BookDetails.feature.cs">
       <AutoGen>True</AutoGen>

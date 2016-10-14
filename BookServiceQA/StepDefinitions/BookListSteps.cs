@@ -8,6 +8,7 @@ using OpenQA.Selenium.Firefox;
 using TechTalk.SpecFlow;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.IE;
+using BookServiceQA.Pages;
 
 namespace BookServiceQA
 {
@@ -34,22 +35,25 @@ namespace BookServiceQA
         [When]
         public void When_I_click_on_the_Details_link()
         {
-            Browser.Driver().FindElement(By.LinkText("Details")).Click();
+            TestEnvironmentsPage tePage = new TestEnvironmentsPage();
+            tePage.SelectEnvironment(0);
+            //Browser.Driver().FindElement(By.LinkText("Details")).Click();
         }
 
         [Then]
         public void Then_book_list_is_displayed()
         {
-            Browser.AmOnTheBookList();
+            Browser.AmOnTheBookList(); //Wait
 
-            String windowTitle = Browser.Driver().Title;
-            Assert.That(windowTitle, Is.EqualTo("BJSS Book Store"));    //Window title
+            BookListPage blPage = new BookListPage();
+            //String windowTitle = Browser.Driver().Title;
+            Assert.That(blPage.windowTitle , Is.EqualTo("BJSS Book Store"));    //Window title
 
-            String pageHeader = Browser.Driver().FindElement(By.TagName("h1")).Text;
-            Assert.That(pageHeader, Is.EqualTo("BJSS Book Store"));    //Page header
+            //String pageHeader = Browser.Driver().FindElement(By.TagName("h1")).Text;
+            Assert.That(blPage.pageHeader, Is.EqualTo("BJSS Book Store"));    //Page header
 
-            String bookSection = Browser.Driver().FindElements((By.CssSelector("h2")))[0].Text;
-            Assert.That(bookSection, Is.EqualTo("Books"));              //Books frame
+            //String bookSection = Browser.Driver().FindElements((By.CssSelector("h2")))[0].Text;
+            Assert.That(blPage.bookSection, Is.EqualTo("Books"));              //Books frame
         }
         
 

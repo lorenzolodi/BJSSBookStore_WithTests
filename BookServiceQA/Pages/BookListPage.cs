@@ -12,16 +12,18 @@ namespace BookServiceQA.Pages
     public class BookListPage
     {
         ReadOnlyCollection<IWebElement> books;
-        public string windowTitle;
-        public string pageHeader;
-        public string bookSection;
+
+        //[Find(By.TagName("h1"))]
+        public String windowTitle;
+        public String pageHeader;
+        public String bookSection;
 
         public BookListPage()
         {
-            String windowTitle = Browser.Driver().Title;
-            String pageHeader = Browser.Driver().FindElement(By.TagName("h1")).Text;
-            String bookSection = Browser.Driver().FindElements((By.CssSelector("h2")))[0].Text;
-            books = Browser.Driver().FindElements(By.LinkText("Details"));
+            windowTitle = Browser.Driver().Title;
+            pageHeader = Browser.Driver().FindElement(By.TagName("h1")).Text;
+            bookSection = Browser.Driver().FindElements((By.CssSelector("h2")))[0].Text;
+            books = Browser.Driver().FindElements(By.LinkText("Details"));            
         }
 
         public void ClickBook(int num)

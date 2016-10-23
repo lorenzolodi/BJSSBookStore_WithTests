@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Remote;
 
 namespace BookServiceQA
 {
@@ -18,8 +19,22 @@ namespace BookServiceQA
         {
             if (_driver == null)
             {
+                //DesiredCapabilities capabilities = DesiredCapabilities.Chrome();
+                //ChromeOptions options = new ChromeOptions();
+                //options.AddArguments("test-type");
+                //capabilities.SetCapability("chrome.binary", "C:\\Program Files(x86)\\Google\\Chrome\\Application\\chrome.exe");
+                //capabilities.SetCapability(ChromeOptions.Capability, options);
+
+
+
+                //System.setProperty("webdriver.chrome.driver", "C:\\Program Files(x86)\\Google\\Chrome\\Application\\chrome.exe");
+                //ChromeOptions options = new ChromeOptions();
+                //options.AddArguments("--test-type");
+                //WebDriver driver = new ChromeDriver(options);
+
                 IWebDriver driver = new ChromeDriver();
                 _driver = driver;
+
             }
             return _driver;
         }

@@ -22,17 +22,14 @@ namespace BookServiceQA
         public void Given_I_have_accessed_the_BJSS_book_store()
         {
             Browser.Driver().Navigate().GoToUrl("https://localhost:44302");
-            tePage = new TestEnvironmentsPagePF();
-            Assert.That(tePage.pageHeader, Is.EqualTo("BJSS Book Store Test Environments"));
-            //Assert.That(Browser.Driver().FindElement(By.TagName("h1")).Text,
-            //    Is.EqualTo("BJSS Book Store Test Environments"));
+            tePage = new TestEnvironmentsPagePF(Browser.Driver());
+            Assert.That(tePage.pageHeader.Text, Is.EqualTo("BJSS Book Store Test Environments"));
         }
 
         [Given]
         public void Given_at_least_one_test_environment_exist()
         {
-            Assert.That(tePage.Env, Is.Not.Null);
-            //Assert.That(Browser.Driver().FindElement(By.LinkText("Details")), Is.Not.Null);
+            Assert.That(tePage.Env.Count, Is.GreaterThan(0));
         }
 
         [When]
@@ -45,15 +42,12 @@ namespace BookServiceQA
         public void Then_book_list_is_displayed()
         {
             Browser.AmOnTheBookList(); //Wait
-
-            //BookListPage blPage = new BookListPage();
+            
             Assert.That(blPage.windowTitle , Is.EqualTo("BJSS Book Store"));    //Window title
-
-            //String pageHeader = Browser.Driver().FindElement(By.TagName("h1")).Text;
-            Assert.That(blPage.pageHeader, Is.EqualTo("BJSS Book Store"));    //Page header
-
-            //String bookSection = Browser.Driver().FindElements((By.CssSelector("h2")))[0].Text;
-            Assert.That(blPage.bookSection, Is.EqualTo("Books"));              //Books frame
+            
+            Assert.That(blPage.pageHeader.Text, Is.EqualTo("BJSS Book Store"));    //Page header
+            
+            Assert.That(blPage.bookSection.Text, Is.EqualTo("Books"));              //Books frame
         }
 
         //[Test]  // TZ
@@ -65,5 +59,13 @@ namespace BookServiceQA
         //}
 
 
+        //[Test]  // TZ
+        //public void Page_object_test()
+        //{
+        //    Browser.Driver().Navigate().GoToUrl("https://localhost:44302");
+        //    TestEnvironmentsPagePF page = new TestEnvironmentsPagePF(Browser.Driver());
+        //    Assert.That(page.pageHeader.Text, Is.EqualTo("BJSS Book Store Test Environments"));
+        //    Assert.That(page.Env.Count, Is.EqualTo(4));
+        //}
     }
 }

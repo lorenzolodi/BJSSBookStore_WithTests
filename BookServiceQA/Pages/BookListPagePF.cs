@@ -15,6 +15,9 @@ namespace BookServiceQA.Pages
         [FindsBy(How = How.CssSelector, Using =".list-unstyled li")]
         public IList<IWebElement> books;
 
+        [FindsBy(How = How.LinkText, Using = "Details")]
+        public IList<IWebElement> Details;
+
         //[FindsBy(How = How.ClassName, Using = ".page-header")]
         public String windowTitle;
 
@@ -22,19 +25,31 @@ namespace BookServiceQA.Pages
         public IWebElement pageHeader;
 
         //public String bookSection;
-        [FindsBy(How = How.CssSelector, Using = ".panel-title > h2")]
+        [FindsBy(How = How.CssSelector, Using = ".panel-heading > h2")]
         public IWebElement bookSection;
 
         public BookListPagePF(IWebDriver driver)
         {
             PageFactory.InitElements(driver, this);
-            //driver.Navigate().GoToUrl("https://localhost:44302/Home/Environment/0f4f1173-6f4d-4b98-838d-435905bcc8ee");
             windowTitle = Browser.Driver().Title;          
         }
 
-        public void ClickBook(int num)
+        public BookDetailsPagePF ClickBook(int num)
         {
-            //books[num].Click();
+            Details[num-1].Click();
+            return new BookDetailsPagePF(Browser.Driver());
+        }
+
+        public string Author(int n)
+        {
+            return Browser.Driver().FindElements(By.ClassName("list-unstyled"))[0].FindElements(By.TagName("li"))[0].FindElements(
+                   By.TagName("span"))[2*n-2].Text;
+        }
+
+        public string Title(int n)
+        {
+            return Browser.Driver().FindElements(By.ClassName("list-unstyled"))[0].FindElements(By.TagName("li"))[0].FindElements(
+                   By.TagName("span"))[2*n-1].Text;
         }
     }
 }

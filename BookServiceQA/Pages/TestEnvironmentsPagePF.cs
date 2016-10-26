@@ -15,12 +15,20 @@ namespace BookServiceQA.Pages
         [FindsBy(How = How.LinkText, Using = "Details")]
         public IList<IWebElement> Env;
 
-        [FindsBy(How = How.TagName, Using = "h1")]
+        [FindsBy(How = How.CssSelector, Using = ".page-header > h1")]
         public IWebElement pageHeader;
 
-        public TestEnvironmentsPagePF()
+        [FindsBy(How = How.CssSelector, Using = "panel-heading > h2")]
+        public IWebElement tableTitle;
+
+        [FindsBy(How = How.TagName, Using = "th")]
+        public IList<IWebElement> Subs;
+
+
+
+        public TestEnvironmentsPagePF(IWebDriver driver)
         {
-            PageFactory.InitElements(Browser.Driver(), this);
+            PageFactory.InitElements(driver, this);
         }
 
         public BookListPagePF SelectEnvironment(int num)

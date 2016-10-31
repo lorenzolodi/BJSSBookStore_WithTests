@@ -42,14 +42,12 @@ namespace BookServiceQA.Pages
 
         public string Author(int n)
         {
-            return Browser.Driver().FindElements(By.ClassName("list-unstyled"))[0].FindElements(By.TagName("li"))[0].FindElements(
-                   By.TagName("span"))[2*n-2].Text;
+            return Browser.Driver().FindElements(By.ClassName("list-unstyled"))[0].FindElements(By.CssSelector("li>strong>span"))[n].Text;
         }
 
         public string Title(int n)
         {
-            return Browser.Driver().FindElements(By.ClassName("list-unstyled"))[0].FindElements(By.TagName("li"))[0].FindElements(
-                   By.TagName("span"))[2*n-1].Text;
+            return Browser.Driver().FindElements(By.ClassName("list-unstyled"))[0].FindElements(By.CssSelector("li>span"))[n].Text;
         }
     }
 }

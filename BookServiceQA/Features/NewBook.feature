@@ -21,7 +21,7 @@ Scenario: Decimal values are not allowed in the Year field
 	| Charles Dickens | Oliver Zest | 1838.33 | Horror | 9.99  |
 	When I press Submit
 	Then I will not be able to add the book
-#	And an error message will be displayed		--> the tooltip is a browser feature that cannot be testes
+#	And an error message will be displayed		--> the tooltip is a browser feature that cannot be tested
 
 @NewBook
 Scenario Outline: Mandatory fields

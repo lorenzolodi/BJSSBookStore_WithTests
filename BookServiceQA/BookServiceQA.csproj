@@ -61,9 +61,9 @@
   <ItemGroup>
     <Compile Include="Pages\BookDetailsPagePF.cs" />
     <Compile Include="Pages\BookListPagePF.cs" />
-    <Compile Include="Pages\BookListPage.cs" />
+    <Compile Include="Pages\ErrorMessagePF.cs" />
+    <Compile Include="Pages\NewBookPagePF.cs" />
     <Compile Include="Pages\TestEnvironmentsPagePF.cs" />
-    <Compile Include="Pages\TestEnvironmentsPage.cs" />
     <Compile Include="Support classes\AssemblySetupFixture.cs" />
     <Compile Include="Features\BookDetails.feature.cs">
       <AutoGen>True</AutoGen>

@@ -44,63 +44,50 @@ namespace BookServiceQA
         [When]
         public void When_I_click_on_the_Home_link()
         {
-            Browser.Driver().FindElement((By.LinkText("Home"))).Click();
+            //Browser.Driver().FindElement((By.LinkText("Home"))).Click();
+            bookDetails.HomeLink.Click();
         }
         
         [Then]
         public void Then_the_Author_field_is_displayed()
         {
-            //string firstTableField = Browser.Driver().FindElements(By.TagName("table"))[0].FindElements(By.TagName("td"))[0].Text;
-            //Assert.That(firstTableField, Is.EqualTo("Author"));
-            Assert.That(bookDetails.AuthorLabel, Is.EqualTo("Author"));
+            Assert.That(bookDetails.AuthorLabel.Text, Is.EqualTo("Author"));
         }
         
         [Then]
         public void Then_the_Title_field_is_displayed()
         {
-            //string secondTableField = Browser.Driver().FindElements(By.TagName("table"))[0].FindElements(By.TagName("td"))[2].Text;
-            //Assert.That(secondTableField, Is.EqualTo("Title"));
-            Assert.That(bookDetails.TitleLabel, Is.EqualTo("Title"));
+            Assert.That(bookDetails.TitleLabel.Text, Is.EqualTo("Title"));
         }
         
         [Then]
         public void Then_the_Year_field_is_displayed()
         {
-            //string secondTableField = Browser.Driver().FindElements(By.TagName("table"))[0].FindElements(By.TagName("td"))[4].Text;
-            //Assert.That(secondTableField, Is.EqualTo("Year"));
-            Assert.That(bookDetails.Yearlabel, Is.EqualTo("Year"));
+            Assert.That(bookDetails.Yearlabel.Text, Is.EqualTo("Year"));
         }
         
         [Then]
         public void Then_the_Genre_field_is_displayed()
         {
-            //string secondTableField = Browser.Driver().FindElements(By.TagName("table"))[0].FindElements(By.TagName("td"))[6].Text;
-            //Assert.That(secondTableField, Is.EqualTo("Genre"));
-            Assert.That(bookDetails.GenreLabel, Is.EqualTo("Genre"));
+            Assert.That(bookDetails.GenreLabel.Text, Is.EqualTo("Genre"));
         }
         
         [Then]
         public void Then_the_Price_field_is_displayed()
         {
-            //string secondTableField = Browser.Driver().FindElements(By.TagName("table"))[0].FindElements(By.TagName("td"))[8].Text;
-            //Assert.That(secondTableField, Is.EqualTo("Price"));
-            Assert.That(bookDetails.PriceLabel, Is.EqualTo("Price"));
+            Assert.That(bookDetails.PriceLabel.Text, Is.EqualTo("Price"));
         }
 
         [Then]
         public void Then_the_Book_List_Author_matches_with_the_Detail_Author()
         {
-            //string secondTableField = Browser.Driver().FindElements(By.TagName("table"))[0].FindElements(By.TagName("td"))[1].Text;
-            //Assert.That(secondTableField, Is.EqualTo(authorName));
-            Assert.That(bookDetails.Author, Is.EqualTo(blPage.Author(1)));
+            Assert.That(bookDetails.Author.Text, Is.EqualTo(blPage.Author(0)));
         }
 
         [Then]
         public void Then_the_Book_List_Title_matches_with_the_Detail_Title()
         {
-            //string secondTableField = Browser.Driver().FindElements(By.TagName("table"))[0].FindElements(By.TagName("td"))[3].Text;
-            //Assert.That(secondTableField, Is.EqualTo(titleName));
-            Assert.That(bookDetails.Title, Is.EqualTo(blPage.Title(1)));
+            Assert.That(bookDetails.Title.Text, Is.EqualTo(blPage.Title(0)));
         }
 
         [Then]

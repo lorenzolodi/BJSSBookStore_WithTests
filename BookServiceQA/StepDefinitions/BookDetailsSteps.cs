@@ -20,11 +20,7 @@ namespace BookServiceQA
         [Given]
         public void Given_I_am_on_the_Book_list_screen()
         {
-            //Browser.Driver().Navigate().GoToUrl("https://localhost:44302");
-            //Browser.Driver().FindElement(By.LinkText("Details")).Click();
-            //Browser.AmOnTheBookList();
             Browser.goToBookList();
-
             blPage = new BookListPagePF(Browser.Driver());
         }
         
@@ -45,7 +41,6 @@ namespace BookServiceQA
         [When]
         public void When_I_click_on_the_Home_link()
         {
-            //Browser.Driver().FindElement((By.LinkText("Home"))).Click();
             bookDetails.HomeLink.Click();
         }
         

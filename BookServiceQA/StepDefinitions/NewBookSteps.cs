@@ -24,13 +24,15 @@ namespace BookServiceQA
         [Given]
         public void Given_I_am_on_the_Book_list_page()
         {
-            Browser.Driver().Navigate().GoToUrl("https://localhost:44302");
-            Browser.Driver().FindElements(By.LinkText("Details"))[1].Click();
+            //Browser.Driver().Navigate().GoToUrl("https://localhost:44302");
+            //Browser.Driver().FindElements(By.LinkText("Details"))[1].Click();
+
+            Browser.goToBookList();
 
             blPage = new BookListPagePF(Browser.Driver());
             nbPage = new NewBookPagePF(Browser.Driver());
 
-            Browser.AmOnTheBookList();
+            //Browser.AmOnTheBookList();
         }
 
 

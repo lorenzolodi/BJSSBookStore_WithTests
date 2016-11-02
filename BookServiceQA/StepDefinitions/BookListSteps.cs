@@ -21,7 +21,8 @@ namespace BookServiceQA
         [Given]
         public void Given_I_have_accessed_the_BJSS_book_store()
         {
-            Browser.Driver().Navigate().GoToUrl("https://localhost:44302");
+            //Browser.Driver().Navigate().GoToUrl("https://localhost:44302");
+            Browser.goToEnvList();
             tePage = new TestEnvironmentsPagePF(Browser.Driver());
             Assert.That(tePage.pageHeader.Text, Is.EqualTo("BJSS Book Store Test Environments"));
         }

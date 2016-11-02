@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -45,6 +46,19 @@ namespace BookServiceQA
                 }
                 Thread.Sleep(100);
             } while (pageHeader != "BJSS Book Store" && i<=100);
+        }
+
+        public static void goToEnvList()
+        {
+            string testURL = ConfigurationManager.AppSettings["TestURL"];
+            Browser.Driver().Navigate().GoToUrl(testURL);
+        }
+
+        public static void goToBookList()
+        {
+            goToEnvList();
+            Browser.Driver().FindElement(By.LinkText("Details")).Click();
+            Browser.AmOnTheBookList();
         }
     }
 }

@@ -24,9 +24,6 @@ namespace BookServiceQA
         [Given]
         public void Given_I_am_on_the_Book_list_page()
         {
-            //Browser.Driver().Navigate().GoToUrl("https://localhost:44302");
-            //Browser.Driver().FindElements(By.LinkText("Details"))[1].Click();
-
             Browser.goToBookList();
 
             blPage = new BookListPagePF(Browser.Driver());
@@ -42,57 +39,44 @@ namespace BookServiceQA
             newAuthor = table.Rows[0]["Author"];    // Values saved for the assert
             newTitle = table.Rows[0]["Title"];
 
-            //new SelectElement(Browser.Driver().FindElement(By.CssSelector("select"))).SelectByText(table.Rows[0]["Author"]);
             nbPage.AuthorDropdownElement.SelectByText(table.Rows[0]["Author"]);
             nbPage.TitleTextBox.SendKeys(table.Rows[0]["Title"]);
             nbPage.YearTextBox.SendKeys(table.Rows[0]["Year"]);
             nbPage.GenreTextBox.SendKeys(table.Rows[0]["Genre"]);
             nbPage.PriceTextBox.SendKeys(table.Rows[0]["Price"]);
-            //Browser.Driver().FindElement(By.Id("inputYear")).SendKeys(table.Rows[0]["Year"]);
-            //Browser.Driver().FindElement(By.Id("inputGenre")).SendKeys(table.Rows[0]["Genre"]);
-            //Browser.Driver().FindElement(By.Id("inputPrice")).SendKeys(table.Rows[0]["Price"]);
         }
 
         [Given(@"I have entered (.*), (.*), (.*), (.*) and (.*)")]
         public void GivenIHaveEnteredAnd(string author, string title, string year, string genre, string price)
         {
-            //new SelectElement(Browser.Driver().FindElement(By.CssSelector("select"))).SelectByText(author);
             nbPage.AuthorDropdownElement.SelectByText(author);
             if (title != "n/a")
             {
-                //Browser.Driver().FindElement(By.Id("inputTitle")).SendKeys(title);
                 nbPage.TitleTextBox.SendKeys(title);
             }
             if (year != "n/a")
             {
-                //Browser.Driver().FindElement(By.Id("inputYear")).SendKeys(year);
                 nbPage.YearTextBox.SendKeys(year);
             }
             else
             {
-                //Browser.Driver().FindElement(By.Id("inputYear")).SendKeys("1000");
                 nbPage.YearTextBox.SendKeys("1000");
             }
             if (price != "n/a")
             {
-                //Browser.Driver().FindElement(By.Id("inputPrice")).SendKeys(price);
                 nbPage.PriceTextBox.SendKeys(price);
             }
             else
             {
-                //Browser.Driver().FindElement(By.Id("inputPrice")).SendKeys("100");
                 nbPage.PriceTextBox.SendKeys("100");
             }
-            //Browser.Driver().FindElement(By.Id("inputGenre")).SendKeys(genre);
             nbPage.GenreTextBox.SendKeys(genre);
             if (year == "n/a")
             {
-                //Browser.Driver().FindElement(By.Id("inputYear")).Clear();
                 nbPage.YearTextBox.Clear();
             }
             if (price == "n/a")
             {
-                //Browser.Driver().FindElement(By.Id("inputPrice")).Clear();
                 nbPage.PriceTextBox.Clear();
             }
         }
@@ -100,9 +84,6 @@ namespace BookServiceQA
         [When]
         public void When_I_press_Submit()
         {
-            //bookCount = Browser.Driver().FindElements(By.LinkText("Details")).Count;
-            //Browser.Driver().FindElement(By.CssSelector("form[class=\"form-horizontal\"]>button")).Click();
-
             bookCount = blPage.books.Count;
             nbPage.Submit.Click();
         }

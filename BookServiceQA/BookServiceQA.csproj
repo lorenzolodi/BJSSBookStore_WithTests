@@ -11,6 +11,8 @@
     <AssemblyName>BookServiceQA</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,6 +37,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -47,49 +50,54 @@
       <HintPath>..\packages\SpecFlow.2.1.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebDriver, Version=2.53.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.WebDriver.2.53.1\lib\net40\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.0.0\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebDriver.Support, Version=2.53.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.Support.2.53.1\lib\net40\WebDriver.Support.dll</HintPath>
+    <Reference Include="WebDriver.Support, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.3.0.0\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblySetupFixture.cs" />
-    <Compile Include="BookDetails.feature.cs">
+    <Compile Include="Pages\BookDetailsPagePF.cs" />
+    <Compile Include="Pages\BookListPagePF.cs" />
+    <Compile Include="Pages\ErrorMessagePF.cs" />
+    <Compile Include="Pages\NewBookPagePF.cs" />
+    <Compile Include="Pages\TestEnvironmentsPagePF.cs" />
+    <Compile Include="Support classes\AssemblySetupFixture.cs" />
+    <Compile Include="Features\BookDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookDetails.feature</DependentUpon>
     </Compile>
-    <Compile Include="BookDetailsSteps.cs" />
-    <Compile Include="BookList.feature.cs">
+    <Compile Include="StepDefinitions\BookDetailsSteps.cs" />
+    <Compile Include="Features\BookList.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookList.feature</DependentUpon>
     </Compile>
-    <Compile Include="BookListSteps.cs" />
-    <Compile Include="Browser.cs" />
-    <Compile Include="NewBook.feature.cs">
+    <Compile Include="StepDefinitions\BookListSteps.cs" />
+    <Compile Include="Support classes\Browser.cs" />
+    <Compile Include="Features\NewBook.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NewBook.feature</DependentUpon>
     </Compile>
-    <Compile Include="NewBookSteps.cs" />
+    <Compile Include="StepDefinitions\NewBookSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="BookDetails.feature">
+    <None Include="Features\BookDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookDetails.feature.cs</LastGenOutput>
     </None>
-    <None Include="BookList.feature">
+    <None Include="Features\BookList.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookList.feature.cs</LastGenOutput>
     </None>
-    <None Include="NewBook.feature">
+    <None Include="Features\NewBook.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NewBook.feature.cs</LastGenOutput>
     </None>
@@ -103,7 +111,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Actions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.2.24.0.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.24.0.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.24.0.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.2.24.0.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

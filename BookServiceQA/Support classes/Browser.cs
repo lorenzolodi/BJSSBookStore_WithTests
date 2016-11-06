@@ -16,9 +16,11 @@ namespace BookServiceQA
     public static class Browser
     {
         private static IWebDriver _driver;
+        public static String testURL;
         
         public static IWebDriver Driver()
         {
+            testURL = ConfigurationManager.AppSettings["TestURL"];
             if (_driver == null)
             {
                 ChromeOptions options = new ChromeOptions();
@@ -50,7 +52,6 @@ namespace BookServiceQA
 
         public static void goToEnvList()
         {
-            string testURL = ConfigurationManager.AppSettings["TestURL"];
             Browser.Driver().Navigate().GoToUrl(testURL);
         }
 

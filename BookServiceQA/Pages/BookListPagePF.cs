@@ -23,8 +23,7 @@ namespace BookServiceQA.Pages
 
         [FindsBy(How = How.CssSelector, Using = ".page-header > h1")]
         public IWebElement pageHeader;
-
-        //public String bookSection;
+        
         [FindsBy(How = How.CssSelector, Using = ".panel-heading > h2")]
         public IWebElement bookSection;
 

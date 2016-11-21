@@ -49,11 +49,47 @@ namespace BookServiceQA
                 Thread.Sleep(100);
             } while (pageHeader != "BJSS Book Store" && i<=100);
         }
+        
+        public static void AmOnTheEnvList()
+        {
+            string pageHeader = "";
+            int i = 0;
+            do
+            {
+                try
+                {
+                    pageHeader = Driver().FindElement(By.TagName("h1")).Text;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+                Thread.Sleep(100);
+            } while (pageHeader != "BJSS Book Store Test Environments" && i <= 100);
+        }
+
+        public static void BookListIsLoaded()
+        {
+            int bookCount = 0;
+            int i = 0;
+            do
+            {
+                try
+                {
+                    bookCount = Driver().FindElements(By.LinkText("Details")).Count;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+                Thread.Sleep(100);
+            } while (bookCount > 0 && i <= 100);
+        }
 
         public static void goToEnvList()
         {
             Browser.Driver().Navigate().GoToUrl(testURL);
-        }
+            }
 
         public static void goToBookList()
         {

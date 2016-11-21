@@ -45,5 +45,11 @@ namespace BookServiceQA.Pages
             PriceLabel = TableCells[8];
             Price = TableCells[9];
         }
+
+        public TestEnvironmentsPagePF ClickHome()
+        {
+            HomeLink.Click();
+            return new TestEnvironmentsPagePF(Browser.Driver());
+        }
     }
 }

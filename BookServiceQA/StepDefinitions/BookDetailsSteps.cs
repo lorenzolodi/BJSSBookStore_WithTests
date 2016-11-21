@@ -16,11 +16,21 @@ namespace BookServiceQA
         private string titleName;
         BookListPagePF blPage;
         BookDetailsPagePF bookDetails;
+        TestEnvironmentsPagePF envPage;
+
+        [When]
+        public void When_I_click_on_the_Home_link()
+        {
+            envPage = bookDetails.ClickHome();
+        }
+
 
         [Given]
         public void Given_I_am_on_the_Book_list_screen()
         {
             Browser.goToBookList();
+            //Browser.AmOnTheBookList();
+            Browser.BookListIsLoaded();
             blPage = new BookListPagePF(Browser.Driver());
         }
         
@@ -33,17 +43,11 @@ namespace BookServiceQA
         }
         
         [Given, When]
-        public void I_click_on_Details()
-        {
+        public void I_select_a_book()
+        {//I click on a book Details
             bookDetails = blPage.ClickBook(1);
         }
-        
-        [When]
-        public void When_I_click_on_the_Home_link()
-        {
-            bookDetails.HomeLink.Click();
-        }
-        
+
         [Then]
         public void Then_the_Author_field_is_displayed()
         {
@@ -87,8 +91,8 @@ namespace BookServiceQA
         }
 
         [Then]
-        public void Then_the_Detail_frame_is_YES_NO_displayed(string yes_no)
-        {
+        public void Then_the_book_details_are_YES_NO_displayed(string yes_no)
+        {//The detail frame is (not) displayed
 
             if (yes_no.Equals("not"))
             {
@@ -106,6 +110,11 @@ namespace BookServiceQA
                 });
 
                 Assert.That(DetailFrame.Text, Is.EqualTo("Detail"));
+                Assert.That(bookDetails.AuthorLabel.Text, Is.EqualTo("Author"));
+                Assert.That(bookDetails.TitleLabel.Text, Is.EqualTo("Title"));
+                Assert.That(bookDetails.Yearlabel.Text, Is.EqualTo("Year"));
+                Assert.That(bookDetails.GenreLabel.Text, Is.EqualTo("Genre"));
+                Assert.That(bookDetails.PriceLabel.Text, Is.EqualTo("Price"));
             }
         }
     }

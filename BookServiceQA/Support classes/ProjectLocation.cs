@@ -44,7 +44,8 @@ namespace BookServiceQA.Support_classes
 
         private static string GetSolutionFolderPath()
         {
-            var directory = new DirectoryInfo(Environment.CurrentDirectory);
+            var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            //var directory = new DirectoryInfo(Environment.CurrentDirectory);
             //var directory = new DirectoryInfo(GetTestProjectDirectory());
 
             while (directory.GetFiles("*.sln").Length == 0)

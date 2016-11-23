@@ -22,24 +22,23 @@ namespace BookServiceQA
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            //using (var context = new BookServiceContext())
-            //{
-            //    context.Database.ExecuteSqlCommand("TRUNCATE TABLE Books");
-            //    context.Database.ExecuteSqlCommand("TRUNCATE TABLE Authors");
-            //    context.Database.Initialize(force: true);
-            //}
+            var app = new WebApplication(ProjectLocation.FromFolder("BookService"), 44302);
+            WebServer = new IisExpressWebServer(app);
+            app.AddEnvironmentVariable("QA");
+            WebServer.Start();
+
+            Browser.Driver();
 
             //DbManager dbAccess = new DbManager();
             //dbAccess.ClearDB();
             //dbAccess.PopulateDB();
             //dbAccess.detach();
 
-            var app = new WebApplication(ProjectLocation.FromFolder("BookService"), 44302);
-            WebServer = new IisExpressWebServer(app);
-            app.AddEnvironmentVariable("QA");
-            WebServer.Start();
-
-            Browser.Driver();    
+            TestData dataBuilder = new TestData();
+            dataBuilder.DeleteAllBooks();
+            dataBuilder.DeleteAllAuthors();
+            dataBuilder.PopulateAuthors();
+            dataBuilder.PopulateBooks();
         }
 
         [OneTimeTearDown]

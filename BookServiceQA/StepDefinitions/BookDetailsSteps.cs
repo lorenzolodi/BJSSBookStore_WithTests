@@ -93,7 +93,6 @@ namespace BookServiceQA
         [Then]
         public void Then_the_book_details_are_YES_NO_displayed(string yes_no)
         {//The detail frame is (not) displayed
-
             if (yes_no.Equals("not"))
             {
                 Assert.That(Browser.Driver().FindElements(By.ClassName("panel-title")).Count, Is.LessThanOrEqualTo(2));

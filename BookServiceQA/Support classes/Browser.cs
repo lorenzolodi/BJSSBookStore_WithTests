@@ -83,7 +83,8 @@ namespace BookServiceQA
                     Debug.WriteLine(ex.Message);
                 }
                 Thread.Sleep(100);
-            } while (bookCount > 0 && i <= 100);
+                i++;
+            } while (bookCount <= 0 && i <= 100);
         }
 
         public static void goToEnvList()

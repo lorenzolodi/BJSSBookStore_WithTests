@@ -23,13 +23,14 @@ namespace BookServiceQA.StepDefinitions
         private string lastAuthorId;
         private string firstBookId;
         private string lastBookId;
+        public string token = "0c6a36ba-10e4-438f-ba86-0d5b68a2bb15";
 
         [Given]
         public void GivenIHaveAtLeastOneBook()
         {
             client = new RestClient(Browser.testURL);
             accessRequest = new RestRequest("/api/books", Method.GET);
-            accessRequest.AddHeader("x-user-token", "0f4f1173-6f4d-4b98-838d-435905bcc8ee");
+            accessRequest.AddHeader("x-user-token", token);
             _response = client.Execute(accessRequest);
             responseObjectArray = JArray.Parse(_response.Content);
             booksCount = responseObjectArray.Count;

@@ -1,11 +1,11 @@
 ﻿Feature: BookList
 	As a generic user
-	In order to select a book
 	I want to be able to view the entire book list
+	In order to select a book
 
-@SmokeTest @ViewBookList
+@SmokeTest @ViewBookList @Declarative
 Scenario: View book list
 	Given I have accessed the BJSS book store
-	And at least one test environment exist
-	When I click on the Details link
+#	And at least one test environment exist
+	When I select an environment
 	Then book list is displayed

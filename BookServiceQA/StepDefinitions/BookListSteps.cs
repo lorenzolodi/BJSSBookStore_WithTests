@@ -33,8 +33,8 @@ namespace BookServiceQA
         }
 
         [When]
-        public void When_I_click_on_the_Details_link()
-        {
+        public void When_I_select_an_environment()
+        {//Click on the environment Details link
             blPage = tePage.SelectEnvironment(0);
         }
 
@@ -50,22 +50,11 @@ namespace BookServiceQA
             Assert.That(blPage.bookSection.Text, Is.EqualTo("Books"));              //Books frame
         }
 
-        //[Test]  // TZ
-        //public void Page_object_test()
-        //{
-        //    BookListPagePF page = new BookListPagePF(Browser.Driver());
-        //    Assert.That(page.pageHeader.Text, Is.EqualTo("BJSS Book Store"));
-        //    Assert.That(page.books.Count, Is.EqualTo(55));
-        //}
-
-
-        //[Test]  // TZ
-        //public void Page_object_test()
-        //{
-        //    Browser.Driver().Navigate().GoToUrl("https://localhost:44302");
-        //    TestEnvironmentsPagePF page = new TestEnvironmentsPagePF(Browser.Driver());
-        //    Assert.That(page.pageHeader.Text, Is.EqualTo("BJSS Book Store Test Environments"));
-        //    Assert.That(page.Env.Count, Is.EqualTo(4));
-        //}
+        [Then]
+        public void Then_the_environment_list_screen_is_displayed()
+        {
+            Browser.AmOnTheEnvList();
+            Assert.That(tePage.pageHeader.Text, Is.EqualTo("BJSS Book Store Test Environments"));
+        }
     }
 }

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using System.Configuration;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using System;
 
 namespace BookService.Models
 {
@@ -33,6 +34,15 @@ namespace BookService.Models
         public System.Data.Entity.DbSet<BookService.Models.Book> Books { get; set; }
 
         public System.Data.Entity.DbSet<BookService.Models.Environment> Environments { get; set; }
+
+        //M.W. CODE
+        private static string GetConnectionString()
+        {
+            var environmentVariable = System.Environment.GetEnvironmentVariable("QA");
+            return environmentVariable == null
+                ? ConfigurationManager.ConnectionStrings["BookServiceContext"].ConnectionString
+                : ConfigurationManager.ConnectionStrings["BookServiceContext-QA"].ConnectionString;
+        }
 
     }
 }

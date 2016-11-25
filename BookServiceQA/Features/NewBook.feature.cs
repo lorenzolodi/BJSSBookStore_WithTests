@@ -31,8 +31,8 @@ namespace BookServiceQA.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "NewBook", "\tAs a librarian\r\n\tIn order to keep the book store interesting\r\n\tI want to be able" +
-                    " to add a new book", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "NewBook", "\tAs a librarian\r\n\tI want to be able to add new books\r\n\tIn order to keep the book " +
+                    "store interesting", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,13 +66,13 @@ namespace BookServiceQA.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a new book")]
-        [NUnit.Framework.CategoryAttribute("SmokeTest")]
         [NUnit.Framework.CategoryAttribute("NewBook")]
+        [NUnit.Framework.CategoryAttribute("Imperative")]
         public virtual void AddANewBook()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a new book", new string[] {
-                        "SmokeTest",
-                        "NewBook"});
+                        "NewBook",
+                        "Imperative"});
 #line 8
 this.ScenarioSetup(scenarioInfo);
 #line 9
@@ -85,11 +85,11 @@ this.ScenarioSetup(scenarioInfo);
                         "Genre",
                         "Price"});
             table1.AddRow(new string[] {
-                        "Charles Dickens",
-                        "Oliver Twist",
-                        "1838",
+                        "Dante Alighieri",
+                        "Inferno",
+                        "1304",
                         "Novel",
-                        "9.99"});
+                        "459.99"});
 #line 10
  testRunner.And("I have entered the following values on the Add Book form", ((string)(null)), table1, "And ");
 #line 13
@@ -103,10 +103,12 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Decimal values are not allowed in the Year field")]
         [NUnit.Framework.CategoryAttribute("NewBook")]
+        [NUnit.Framework.CategoryAttribute("Imperative")]
         public virtual void DecimalValuesAreNotAllowedInTheYearField()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Decimal values are not allowed in the Year field", new string[] {
-                        "NewBook"});
+                        "NewBook",
+                        "Imperative"});
 #line 17
 this.ScenarioSetup(scenarioInfo);
 #line 18
@@ -119,10 +121,10 @@ this.ScenarioSetup(scenarioInfo);
                         "Genre",
                         "Price"});
             table2.AddRow(new string[] {
-                        "Charles Dickens",
-                        "Oliver Zest",
-                        "1838.33",
-                        "Horror",
+                        "Giovanni Boccaccio",
+                        "Comedia delle ninfe fiorentine",
+                        "1342.33",
+                        "Classic",
                         "9.99"});
 #line 19
  testRunner.And("I have entered the following values on the Add Book form", ((string)(null)), table2, "And ");
@@ -137,13 +139,15 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Mandatory fields")]
         [NUnit.Framework.CategoryAttribute("NewBook")]
-        [NUnit.Framework.TestCaseAttribute("Miguel de Cervantes", "n/a", "1500", "Fiction", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Charles Dickens", "Oliver Nest", "n/a", "Fiction", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Charles Dickens", "Oliver Nest", "1500", "Fiction", "n/a", new string[0])]
+        [NUnit.Framework.CategoryAttribute("Imperative")]
+        [NUnit.Framework.TestCaseAttribute("Giovanni Boccaccio", "n/a", "1335", "Poem", "55", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Dante Alighieri", "Vita Nova", "n/a", "Prosimetrum", "99", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Alessandro Manzoni", "Adelchi", "1822", "Tragedy", "n/a", new string[0])]
         public virtual void MandatoryFields(string author, string title, string year, string genre, string price, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "NewBook"};
+                    "NewBook",
+                    "Imperative"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));

@@ -116,5 +116,41 @@ namespace BookServiceQA
                 Assert.That(bookDetails.PriceLabel.Text, Is.EqualTo("Price"));
             }
         }
+
+        [Given]
+        public void Given_a_list_of_books()
+        {
+            Browser.goToBookList();
+            Browser.BookListIsLoaded();
+            blPage = new BookListPagePF(Browser.Driver());
+        }
+
+        [Then]
+        public void Then_I_can_see_its_details()
+        {
+            WebDriverWait wait = new WebDriverWait(Browser.Driver(), TimeSpan.FromSeconds(5));
+            var DetailFrame = wait.Until(d =>
+            {
+                var headers = Browser.Driver().FindElements(By.CssSelector("h2[class=\"panel-title\"]"));
+                if (headers.Count == 3)
+                    return headers[1];
+                return null;
+            });
+
+            Assert.That(DetailFrame.Text, Is.EqualTo("Detail"));
+            Assert.That(bookDetails.AuthorLabel.Text, Is.EqualTo("Author"));
+            Assert.That(bookDetails.TitleLabel.Text, Is.EqualTo("Title"));
+            Assert.That(bookDetails.Yearlabel.Text, Is.EqualTo("Year"));
+            Assert.That(bookDetails.GenreLabel.Text, Is.EqualTo("Genre"));
+            Assert.That(bookDetails.PriceLabel.Text, Is.EqualTo("Price"));
+        }
+
+        [Then]
+        public void Then_I_can_see_the_matching_Author_and_Title()
+        {
+            Assert.That(bookDetails.Author.Text, Is.EqualTo(blPage.Author(0)));
+            Assert.That(bookDetails.Title.Text, Is.EqualTo(blPage.Title(0)));
+        }
+
     }
 }

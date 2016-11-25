@@ -65,14 +65,14 @@ namespace BookServiceQA.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("View book details")]
-        [NUnit.Framework.CategoryAttribute("SmokeTest")]
+        [NUnit.Framework.DescriptionAttribute("View book details (Imperative)")]
         [NUnit.Framework.CategoryAttribute("BookDetails")]
-        public virtual void ViewBookDetails()
+        [NUnit.Framework.CategoryAttribute("Imperative")]
+        public virtual void ViewBookDetailsImperative()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View book details", new string[] {
-                        "SmokeTest",
-                        "BookDetails"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View book details (Imperative)", new string[] {
+                        "BookDetails",
+                        "Imperative"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -90,21 +90,46 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Home link")]
+        [NUnit.Framework.DescriptionAttribute("View book details (Declarative)")]
         [NUnit.Framework.CategoryAttribute("BookDetails")]
-        public virtual void HomeLink()
+        [NUnit.Framework.CategoryAttribute("Declarative")]
+        public virtual void ViewBookDetailsDeclarative()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Home link", new string[] {
-                        "BookDetails"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View book details (Declarative)", new string[] {
+                        "BookDetails",
+                        "Declarative"});
 #line 21
 this.ScenarioSetup(scenarioInfo);
 #line 22
- testRunner.Given("I am on the Book list screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a list of books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 23
+ testRunner.When("I select a book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 24
- testRunner.And("I select a book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("I can see its details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 25
+ testRunner.And("I can see the matching Author and Title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Home link")]
+        [NUnit.Framework.CategoryAttribute("BookDetails")]
+        [NUnit.Framework.CategoryAttribute("Declarative")]
+        public virtual void HomeLink()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Home link", new string[] {
+                        "BookDetails",
+                        "Declarative"});
+#line 28
+this.ScenarioSetup(scenarioInfo);
+#line 29
+ testRunner.Given("I am on the Book list screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 31
+ testRunner.And("I select a book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 32
  testRunner.When("I click on the Home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 27
+#line 34
  testRunner.Then("the book details are not displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

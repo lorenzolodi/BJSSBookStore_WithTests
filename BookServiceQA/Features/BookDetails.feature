@@ -3,8 +3,8 @@
 	In order to manage the book store
 	I want to be able to view a full list of the available books
 
-@SmokeTest @BookDetails
-Scenario: View book details
+@BookDetails @Imperative
+Scenario: View book details (Imperative)
 	Given I am on the Book list screen
 #	And at least one book exist in the system
 	And I select a book
@@ -17,7 +17,14 @@ Scenario: View book details
 #	And the Genre field is displayed
 #	And the Price field is displayed
 
-	@BookDetails
+@BookDetails @Declarative
+Scenario: View book details (Declarative)
+	Given a list of books
+	When I select a book
+	Then I can see its details
+	And I can see the matching Author and Title
+
+@BookDetails @Declarative
 Scenario: Home link
 	Given I am on the Book list screen
 #	And at least one book exist in the system

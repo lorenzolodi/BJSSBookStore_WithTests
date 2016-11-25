@@ -31,8 +31,8 @@ namespace BookServiceQA.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookList", "\tAs a generic user\r\n\tIn order to select a book\r\n\tI want to be able to view the en" +
-                    "tire book list", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookList", "\tAs a generic user\r\n\tI want to be able to view the entire book list\r\n\tIn order to" +
+                    " select a book", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,11 +68,13 @@ namespace BookServiceQA.Features
         [NUnit.Framework.DescriptionAttribute("View book list")]
         [NUnit.Framework.CategoryAttribute("SmokeTest")]
         [NUnit.Framework.CategoryAttribute("ViewBookList")]
+        [NUnit.Framework.CategoryAttribute("Declarative")]
         public virtual void ViewBookList()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View book list", new string[] {
                         "SmokeTest",
-                        "ViewBookList"});
+                        "ViewBookList",
+                        "Declarative"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8

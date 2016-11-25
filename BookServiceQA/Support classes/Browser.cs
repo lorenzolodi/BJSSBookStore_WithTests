@@ -17,7 +17,9 @@ namespace BookServiceQA
     {
         private static IWebDriver _driver;
         public static String testURL;
-        
+        public static string highestAuthorId;
+        public static string highestBookId;
+
         public static IWebDriver Driver()
         {
             testURL = ConfigurationManager.AppSettings["TestURL"];

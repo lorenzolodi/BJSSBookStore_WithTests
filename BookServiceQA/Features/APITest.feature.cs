@@ -64,6 +64,14 @@ namespace BookServiceQA.Features
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 6
+#line 7
+ testRunner.Given("I have three authors and three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Get all the books")]
         [NUnit.Framework.CategoryAttribute("API")]
@@ -73,13 +81,15 @@ namespace BookServiceQA.Features
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get all the books", new string[] {
                         "API",
                         "Declarative"});
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 9
- testRunner.When("I access the list of books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 11
+ testRunner.Given("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 12
+ testRunner.When("I access the list of books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 13
  testRunner.Then("all books are returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -94,13 +104,15 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get a book by id", new string[] {
                         "API",
                         "Declarative"});
-#line 13
-this.ScenarioSetup(scenarioInfo);
-#line 14
- testRunner.Given("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 15
- testRunner.When("I access a book by id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 17
+ testRunner.Given("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
+ testRunner.When("I access a book by id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
  testRunner.Then("the corresponding book is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -115,13 +127,15 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get all the authors", new string[] {
                         "API",
                         "Declarative"});
-#line 19
-this.ScenarioSetup(scenarioInfo);
-#line 20
- testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
- testRunner.When("I access all authors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 22
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 23
+ testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 24
+ testRunner.When("I access all authors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
  testRunner.Then("all authors are returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -136,13 +150,15 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get an author by id", new string[] {
                         "API",
                         "Declarative"});
-#line 25
-this.ScenarioSetup(scenarioInfo);
-#line 26
- testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 27
- testRunner.When("I access an author by id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 28
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 29
+ testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 30
+ testRunner.When("I access an author by id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
  testRunner.Then("the corresponding author is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -157,15 +173,17 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Post an author", new string[] {
                         "API",
                         "Declarative"});
-#line 31
-this.ScenarioSetup(scenarioInfo);
-#line 32
- testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 33
- testRunner.When("I add a new author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 34
- testRunner.Then("I have one more author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
 #line 35
+ testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 36
+ testRunner.When("I add a new author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
+ testRunner.Then("I have one more author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 38
  testRunner.And("the author data is matching", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -180,17 +198,19 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Post a book", new string[] {
                         "API",
                         "Declarative"});
-#line 38
-this.ScenarioSetup(scenarioInfo);
-#line 39
- testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 40
- testRunner.And("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 41
- testRunner.When("I add a new book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
 #line 42
- testRunner.Then("I have one more book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 43
+ testRunner.And("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 44
+ testRunner.When("I add a new book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 45
+ testRunner.Then("I have one more book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 46
  testRunner.And("the book data is matching", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -205,13 +225,15 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update an author", new string[] {
                         "API",
                         "Declarative"});
-#line 46
-this.ScenarioSetup(scenarioInfo);
-#line 47
- testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 48
- testRunner.When("I update an author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 49
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 50
+ testRunner.Given("I have three authors in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 51
+ testRunner.When("I update an author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 52
  testRunner.Then("the author is correctly updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -226,13 +248,15 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a book", new string[] {
                         "API",
                         "Declarative"});
-#line 52
-this.ScenarioSetup(scenarioInfo);
-#line 53
- testRunner.Given("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 54
- testRunner.When("I update a book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 55
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 56
+ testRunner.Given("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 57
+ testRunner.When("I update a book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 58
  testRunner.Then("the book is correctly updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -247,13 +271,15 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cannot delete an author that has a book", new string[] {
                         "API",
                         "Declarative"});
-#line 58
-this.ScenarioSetup(scenarioInfo);
-#line 59
- testRunner.Given("I have an author with a corresponding book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 60
- testRunner.When("I delete an author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 61
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 62
+ testRunner.Given("I have an author with a corresponding book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 63
+ testRunner.When("I delete an author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 64
  testRunner.Then("the author still exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -268,13 +294,15 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete an author", new string[] {
                         "API",
                         "Declarative"});
-#line 64
-this.ScenarioSetup(scenarioInfo);
-#line 65
- testRunner.Given("I have an author without a corresponding book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 66
- testRunner.When("I delete an author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 67
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 68
+ testRunner.Given("I have an author without a corresponding book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 69
+ testRunner.When("I delete an author", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 70
  testRunner.Then("the author no longer exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -289,13 +317,15 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a book", new string[] {
                         "API",
                         "Declarative"});
-#line 70
-this.ScenarioSetup(scenarioInfo);
-#line 71
- testRunner.Given("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 72
- testRunner.When("I delete a book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 73
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 74
+ testRunner.Given("I have three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 75
+ testRunner.When("I delete a book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 76
  testRunner.Then("the book no longer exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

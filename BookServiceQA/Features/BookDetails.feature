@@ -3,6 +3,9 @@
 	In order to manage the book store
 	I want to be able to view a full list of the available books
 
+Background: Fill up book store
+	Given I have three authors and three books in my book store
+
 @BookDetails @Imperative
 Scenario: View book details (Imperative)
 	Given I am on the Book list screen

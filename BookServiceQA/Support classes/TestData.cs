@@ -11,8 +11,6 @@ namespace BookServiceQA.Support_classes
         private RestRequest accessRequest;
         private JArray responseObjectArray;
         public string token;
-        public string highestAuthorId;
-        public string highestBookId;
 
         public TestData()
         {

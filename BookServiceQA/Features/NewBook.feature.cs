@@ -64,6 +64,14 @@ namespace BookServiceQA.Features
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 6
+#line 7
+ testRunner.Given("I have three authors and three books in my book store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a new book")]
         [NUnit.Framework.CategoryAttribute("NewBook")]
@@ -73,9 +81,11 @@ namespace BookServiceQA.Features
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a new book", new string[] {
                         "NewBook",
                         "Imperative"});
-#line 8
+#line 10
 this.ScenarioSetup(scenarioInfo);
-#line 9
+#line 6
+this.FeatureBackground();
+#line 11
  testRunner.Given("I am on the Book list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -90,11 +100,11 @@ this.ScenarioSetup(scenarioInfo);
                         "1304",
                         "Novel",
                         "459.99"});
-#line 10
+#line 12
  testRunner.And("I have entered the following values on the Add Book form", ((string)(null)), table1, "And ");
-#line 13
+#line 15
  testRunner.When("I press Submit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
+#line 16
  testRunner.Then("the new book is displayed in the book list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -109,9 +119,11 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Decimal values are not allowed in the Year field", new string[] {
                         "NewBook",
                         "Imperative"});
-#line 17
+#line 19
 this.ScenarioSetup(scenarioInfo);
-#line 18
+#line 6
+this.FeatureBackground();
+#line 20
  testRunner.Given("I am on the Book list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -126,11 +138,11 @@ this.ScenarioSetup(scenarioInfo);
                         "1342.33",
                         "Classic",
                         "9.99"});
-#line 19
+#line 21
  testRunner.And("I have entered the following values on the Add Book form", ((string)(null)), table2, "And ");
-#line 22
+#line 24
  testRunner.When("I press Submit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 23
+#line 25
  testRunner.Then("I will not be able to add the book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -153,17 +165,19 @@ this.ScenarioSetup(scenarioInfo);
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Mandatory fields", @__tags);
-#line 27
-this.ScenarioSetup(scenarioInfo);
-#line 28
- testRunner.Given("I am on the Book list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 29
- testRunner.And(string.Format("I have entered {0}, {1}, {2}, {3} and {4}", author, title, year, genre, price), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
 #line 30
- testRunner.When("I press Submit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I am on the Book list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 31
- testRunner.Then("I will not be able to add the book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And(string.Format("I have entered {0}, {1}, {2}, {3} and {4}", author, title, year, genre, price), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 32
+ testRunner.When("I press Submit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 33
+ testRunner.Then("I will not be able to add the book", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 34
  testRunner.And("an error message will be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

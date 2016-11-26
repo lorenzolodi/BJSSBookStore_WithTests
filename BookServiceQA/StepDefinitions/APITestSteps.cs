@@ -2,7 +2,6 @@
 using TechTalk.SpecFlow;
 using RestSharp;
 using Newtonsoft.Json.Linq;
-using NUnit;
 using NUnit.Framework;
 using System.Configuration;
 using BookServiceQA.Support_classes;
@@ -13,21 +12,26 @@ namespace BookServiceQA.StepDefinitions
     public class APITestSteps
     {
         private IRestResponse _response;
-        private int authorsCount;
-        private int booksCount;
-        private RestClient client;
         private RestRequest accessRequest;
-        private string bookId;
-        private string authorId;
         private JObject responseObjectList;
         private JArray responseObjectArray;
-        private string firstAuthorId;
-        private string lastAuthorId;
-        private string firstBookId;
-        private string lastBookId;
         public string token = ConfigurationManager.AppSettings["Token"];
-        private int nextAuthorId = Int32.Parse(Browser.highestAuthorId) + 1;    //HighestAuthorId is the last id of the deleted authors
-        private int nextBookId = Int32.Parse(Browser.highestBookId) + 1;        //HighestBookId is the last id of the deleted books
+        private int nextAuthorId;//= Int32.Parse(Browser.highestAuthorId) + 1;    //HighestAuthorId is the last id of the deleted authors
+        private int nextBookId;//= Int32.Parse(Browser.highestBookId) + 1;        //HighestBookId is the last id of the deleted books
+
+        public string firstAuthorId()
+        {
+            _response = CallAPI("/api/authors", Method.GET);
+            responseObjectArray = JArray.Parse(_response.Content);
+            return responseObjectArray[0]["Id"].ToString();
+        }
+
+        public string firstBookId()
+        {
+            _response = CallAPI("/api/books", Method.GET);
+            responseObjectArray = JArray.Parse(_response.Content);
+            return responseObjectArray[0]["Id"].ToString();
+        }
 
         public IRestResponse CallAPI(string apiURL, RestSharp.Method apiMethod, params string[] args)
         {
@@ -136,8 +140,6 @@ namespace BookServiceQA.StepDefinitions
         {
             responseObjectArray = JArray.Parse(_response.Content);
             Assert.That(responseObjectArray.Count, Is.EqualTo(3));
-            //var firstBook = responseObjectArray[0];
-            //Assert.That(firstBook["Name"].ToString(), Is.EqualTo("Jane Austen"));
         }
 
         [When]
@@ -296,6 +298,18 @@ namespace BookServiceQA.StepDefinitions
             Assert.That(responseObjectList.Property("Name").Value.ToString(), Is.EqualTo("Alessandro Manzoni"));
         }
 
+        [Given]
+        public void Given_I_have_three_authors_and_three_books_in_my_book_store()
+        {
+            TestData dataBuilder = new TestData();
+            dataBuilder.DeleteAllBooks();
+            dataBuilder.DeleteAllAuthors();
+            dataBuilder.PopulateAuthors();
+            dataBuilder.PopulateBooks();
+
+            nextAuthorId = Int32.Parse(firstAuthorId());
+            nextBookId = Int32.Parse(firstBookId());
+        }
 
     }
 }

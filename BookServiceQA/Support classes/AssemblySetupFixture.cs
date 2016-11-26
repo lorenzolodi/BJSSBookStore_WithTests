@@ -34,11 +34,11 @@ namespace BookServiceQA
             //dbAccess.PopulateDB();
             //dbAccess.detach();
 
-            TestData dataBuilder = new TestData();
-            dataBuilder.DeleteAllBooks();
-            dataBuilder.DeleteAllAuthors();
-            dataBuilder.PopulateAuthors();
-            dataBuilder.PopulateBooks();
+            //TestData dataBuilder = new TestData();
+            //dataBuilder.DeleteAllBooks();
+            //dataBuilder.DeleteAllAuthors();
+            //dataBuilder.PopulateAuthors();
+            //dataBuilder.PopulateBooks();
         }
 
         [OneTimeTearDown]

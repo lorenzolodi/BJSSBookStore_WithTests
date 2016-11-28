@@ -11,6 +11,7 @@ namespace BookServiceQA.Support_classes
         private RestRequest accessRequest;
         private JArray responseObjectArray;
         public string token;
+        private string firstAuthorId;
 
         public TestData()
         {
@@ -27,7 +28,7 @@ namespace BookServiceQA.Support_classes
                     var client = new RestClient(Browser.testURL);
                     accessRequest = new RestRequest("/api/Books/" + book["Id"].ToString(), Method.DELETE);
                     accessRequest.AddHeader("x-user-token", token);
-                    Browser.highestBookId = book["Id"].ToString(); //save and share the highest id before deleting 
+                    //Browser.highestBookId = book["Id"].ToString(); //save and share the highest id before deleting 
                     IRestResponse response = client.Execute(accessRequest);
                 }
             }  
@@ -43,7 +44,7 @@ namespace BookServiceQA.Support_classes
                     var client = new RestClient(Browser.testURL);
                     accessRequest = new RestRequest("/api/Authors/" + author["Id"].ToString(), Method.DELETE);
                     accessRequest.AddHeader("x-user-token", token);
-                    Browser.highestAuthorId = author["Id"].ToString(); //save and share the highest id before deleting 
+                    //Browser.highestAuthorId = author["Id"].ToString(); //save and share the highest id before deleting 
                     IRestResponse response = client.Execute(accessRequest);
                 }
             }
@@ -102,9 +103,11 @@ namespace BookServiceQA.Support_classes
 
         public void PopulateBooks()
         {
-            CreateBook(1, "Promessi Sposi", 1827, 80.99, "Novel", Convert.ToInt32(Browser.highestAuthorId) +1);
-            CreateBook(2, "Divinia Commedia", 1307, 220.49, "Poem", Convert.ToInt32(Browser.highestAuthorId) + 2);
-            CreateBook(3, "Decameron", 1351, 180.53, "Poems", Convert.ToInt32(Browser.highestAuthorId) + 3);
+            GetAllAuthors();
+            firstAuthorId = responseObjectArray[0]["Id"].ToString();
+            CreateBook(1, "Promessi Sposi", 1827, 80.99, "Novel", Convert.ToInt32(firstAuthorId));
+            CreateBook(2, "Divinia Commedia", 1307, 220.49, "Poem", Convert.ToInt32(firstAuthorId) + 1);
+            CreateBook(3, "Decameron", 1351, 180.53, "Poems", Convert.ToInt32(firstAuthorId) + 2);
         }
     }
 }

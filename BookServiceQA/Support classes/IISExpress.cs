@@ -24,9 +24,11 @@ namespace BookServiceQA.Support_classes
 
         public void Start(string configTransform = null)
         {
+            //string iisconfig = @"C:\C#.Pluralsight\TrainingProject\testsite\BookServiceQA\applicationhost.config"; // To be parameterized!!
             ProcessStartInfo webHostStartInfo;
             if (configTransform == null)
             {
+                //webHostStartInfo = InitializeIisExpress(_application, iisconfig);
                 webHostStartInfo = InitializeIisExpress(_application);
             }
             else
@@ -34,6 +36,7 @@ namespace BookServiceQA.Support_classes
                 var siteDeployer = new MsBuildDeployer(_application.Location);
                 var deployPath = Path.Combine(Environment.CurrentDirectory, "TestSite");
                 siteDeployer.Deploy(configTransform, deployPath);
+                //webHostStartInfo = InitializeIisExpress(_application, iisconfig, deployPath);//Start iis from appconfig
                 webHostStartInfo = InitializeIisExpress(_application, deployPath);
             }
             _webHostProcess = Process.Start(webHostStartInfo);
@@ -55,6 +58,7 @@ namespace BookServiceQA.Support_classes
         }
 
         private static ProcessStartInfo InitializeIisExpress(WebApplication application, string deployPath = null)
+        //private static ProcessStartInfo InitializeIisExpress(WebApplication application, string config, string deployPath = null)//Start iis from appconfig
         {
             // todo: grab stdout and/or stderr for logging purposes?
             var key = Environment.Is64BitOperatingSystem ? "programfiles(x86)" : "programfiles";
@@ -68,6 +72,7 @@ namespace BookServiceQA.Support_classes
                 CreateNoWindow = false,
                 UseShellExecute = false,
                 Arguments = String.Format("/path:\"{0}\" /port:{1}", deployPath ?? application.Location.FullPath, application.PortNumber),
+                //Arguments = String.Format("/config:\"{0}\" ", config);//Start iis from appconfig
                 FileName = string.Format("{0}\\IIS Express\\iisexpress.exe", programfiles)
             };
 

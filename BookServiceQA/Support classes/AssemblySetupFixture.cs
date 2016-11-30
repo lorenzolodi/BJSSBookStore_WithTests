@@ -15,8 +15,7 @@ namespace BookServiceQA
             WebServer = new IisExpressWebServer(app);
             app.AddEnvironmentVariable("QA");
             // Modify the applicationhost_local.config to use the correct physical path for the website
-            string strCmdText = "APPCMD /apphostconfig:\""+app.Location.FullPath+ "\\BookServiceQA\applicationhost_local.config\" SET site /site.name:\"Development Web Site\" /application[path='/'].virtualdirectory[path='/'].physicalPath:\"" + app.Location.FullPath + "\"";
-            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+            WebServer.ModifyConfig(app);
             WebServer.Start();
 
             Browser.Driver();

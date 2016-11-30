@@ -28,8 +28,6 @@ namespace BookServiceQA
 
             blPage = new BookListPagePF(Browser.Driver());
             nbPage = new NewBookPagePF(Browser.Driver());
-
-            //Browser.AmOnTheBookList();
         }
 
 
@@ -118,8 +116,6 @@ namespace BookServiceQA
         [Then]
         public void Then_an_error_message_will_be_displayed()
         {
-            Thread.Sleep(500);
-
             ErrorMessage = new ErrorMessagePF(Browser.Driver());
             Assert.That(ErrorMessage.ErrorText.Text, Is.EqualTo("Bad Request"));
         }

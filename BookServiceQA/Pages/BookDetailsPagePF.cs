@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace BookServiceQA.Pages
 {
@@ -32,7 +33,9 @@ namespace BookServiceQA.Pages
 
         public BookDetailsPagePF(IWebDriver driver)
         {
-            System.Threading.Thread.Sleep(500);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.TagName("td")));
+            
             PageFactory.InitElements(driver, this);
             AuthorLabel = TableCells[0];
             Author = TableCells[1];
@@ -46,10 +49,10 @@ namespace BookServiceQA.Pages
             Price = TableCells[9];
         }
 
-        public TestEnvironmentsPagePF ClickHome()
+        public BookListPagePF ClickHome()
         {
             HomeLink.Click();
-            return new TestEnvironmentsPagePF(Browser.Driver());
+            return new BookListPagePF(Browser.Driver());
         }
     }
 }

@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Configuration;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Remote;
 
 namespace BookServiceQA
 {
     public static class Browser
     {
         private static IWebDriver _driver;
-        public static String testURL;
+        public static string testURL;
         public static string highestAuthorId;
         public static string highestBookId;
 
@@ -91,14 +85,14 @@ namespace BookServiceQA
 
         public static void goToEnvList()
         {
-            Browser.Driver().Navigate().GoToUrl(testURL);
+            Driver().Navigate().GoToUrl(testURL);
             }
 
         public static void goToBookList()
         {
             goToEnvList();
-            Browser.Driver().FindElement(By.LinkText("Details")).Click();
-            Browser.AmOnTheBookList();
+            Driver().FindElement(By.LinkText("Details")).Click();
+            //AmOnTheBookList();
         }
     }
 }

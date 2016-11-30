@@ -72,7 +72,7 @@ namespace BookServiceQA.Support_classes
                 CreateNoWindow = false,
                 UseShellExecute = false,
                 //Arguments = String.Format("/path:\"{0}\" /port:{1}", deployPath ?? application.Location.FullPath, application.PortNumber),
-                Arguments = String.Format("/config:\"{0}\" ", config),//Start iis from appconfig
+                Arguments = string.Format("/config:\"{0}\" ", config),//Start iis from appconfig
                 FileName = string.Format("{0}\\IIS Express\\iisexpress.exe", programfiles)
             };
 
@@ -80,6 +80,19 @@ namespace BookServiceQA.Support_classes
                 startInfo.EnvironmentVariables.Add(variable.Key, variable.Value);
 
             return startInfo;
+        }
+
+        public void ModifyConfig(WebApplication app)
+        {
+            var key = Environment.Is64BitOperatingSystem ? "programfiles(x86)" : "programfiles";
+            var programfiles = Environment.GetEnvironmentVariable(key);
+            // Modify the applicationhost_local.config to use the correct physical path for the website
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.FileName = string.Format("{0}\\IIS Express\\APPCMD.exe", programfiles);
+            startInfo.Arguments = "/apphostconfig:\"" + app.Location.FullPath + "QA\\applicationhost_local.config\" SET site /site.name:\"Development Web Site\" /application[path='/'].virtualdirectory[path='/'].physicalPath:\"" + app.Location.FullPath + "\"";
+            process.StartInfo = startInfo;
+            process.Start();
         }
     }
 }

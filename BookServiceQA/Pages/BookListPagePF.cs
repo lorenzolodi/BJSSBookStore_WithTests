@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
 
 namespace BookServiceQA.Pages
 {
@@ -19,7 +20,7 @@ namespace BookServiceQA.Pages
         public IList<IWebElement> Details;
 
         //[FindsBy(How = How.ClassName, Using = ".page-header")]
-        public String windowTitle;
+        public string windowTitle;
 
         [FindsBy(How = How.CssSelector, Using = ".page-header > h1")]
         public IWebElement pageHeader;
@@ -32,6 +33,9 @@ namespace BookServiceQA.Pages
 
         public BookListPagePF(IWebDriver driver)
         {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(4));
+            wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".panel-heading > h2")));
+
             PageFactory.InitElements(driver, this);
             windowTitle = Browser.Driver().Title;          
         }

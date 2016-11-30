@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace BookServiceQA.Pages
 {
@@ -18,6 +19,9 @@ namespace BookServiceQA.Pages
 
         public ErrorMessagePF(IWebDriver driver)
         {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("div[class=\"alert alert-danger\"]")));
+
             PageFactory.InitElements(driver, this);
         }
     }

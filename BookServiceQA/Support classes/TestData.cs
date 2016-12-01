@@ -7,15 +7,15 @@ namespace BookServiceQA.Support_classes
 {
     public class TestData
     {
-        private IRestResponse _response;
+        private IRestResponse response;
         private RestRequest accessRequest;
         private JArray responseObjectArray;
-        public string token;
+        public string Token;
         private string firstAuthorId;
 
         public TestData()
         {
-            token = ConfigurationManager.AppSettings["Token"];
+            Token = ConfigurationManager.AppSettings["Token"];
         }
 
         public void DeleteAllBooks()
@@ -25,9 +25,9 @@ namespace BookServiceQA.Support_classes
             {
                 foreach (JObject book in responseObjectArray)
                 {
-                    var client = new RestClient(Browser.testURL);
+                    var client = new RestClient(Browser.TestURL);
                     accessRequest = new RestRequest("/api/Books/" + book["Id"].ToString(), Method.DELETE);
-                    accessRequest.AddHeader("x-user-token", token);
+                    accessRequest.AddHeader("x-user-token", Token);
                     //Browser.highestBookId = book["Id"].ToString(); //save and share the highest id before deleting 
                     IRestResponse response = client.Execute(accessRequest);
                 }
@@ -41,10 +41,9 @@ namespace BookServiceQA.Support_classes
             {
                 foreach (JObject author in responseObjectArray)
                 {
-                    var client = new RestClient(Browser.testURL);
+                    var client = new RestClient(Browser.TestURL);
                     accessRequest = new RestRequest("/api/Authors/" + author["Id"].ToString(), Method.DELETE);
-                    accessRequest.AddHeader("x-user-token", token);
-                    //Browser.highestAuthorId = author["Id"].ToString(); //save and share the highest id before deleting 
+                    accessRequest.AddHeader("x-user-token", Token);
                     IRestResponse response = client.Execute(accessRequest);
                 }
             }
@@ -52,38 +51,38 @@ namespace BookServiceQA.Support_classes
 
         public void GetAllBooks()
         {
-            var client = new RestClient(Browser.testURL);
+            var client = new RestClient(Browser.TestURL);
             accessRequest = new RestRequest("/api/books", Method.GET);
-            accessRequest.AddHeader("x-user-token", token);
-            _response = client.Execute(accessRequest);
-            responseObjectArray = JArray.Parse(_response.Content);
+            accessRequest.AddHeader("x-user-token", Token);
+            response = client.Execute(accessRequest);
+            responseObjectArray = JArray.Parse(response.Content);
         }
 
         public void GetAllAuthors()
         {
-            var client = new RestClient(Browser.testURL);
+            var client = new RestClient(Browser.TestURL);
             accessRequest = new RestRequest("/api/authors", Method.GET);
-            accessRequest.AddHeader("x-user-token", token);
-            _response = client.Execute(accessRequest);
-            responseObjectArray = JArray.Parse(_response.Content);
+            accessRequest.AddHeader("x-user-token", Token);
+            response = client.Execute(accessRequest);
+            responseObjectArray = JArray.Parse(response.Content);
         }
 
         public void CreateAuthor(int id, string name)
         {
-            var client = new RestClient(Browser.testURL);
+            var client = new RestClient(Browser.TestURL);
             accessRequest = new RestRequest("/api/authors", Method.POST);
-            accessRequest.AddHeader("x-user-token", token);
+            accessRequest.AddHeader("x-user-token", Token);
             accessRequest.RequestFormat = DataFormat.Json;
             accessRequest.AddParameter("Id", id);
             accessRequest.AddParameter("Name", name);
-            _response = client.Execute(accessRequest);
+            response = client.Execute(accessRequest);
         }
 
         public void CreateBook(int id, string title, int year, double price, string genre, int authorId)
         {
-            var client = new RestClient(Browser.testURL);
+            var client = new RestClient(Browser.TestURL);
             accessRequest = new RestRequest("/api/books", Method.POST);
-            accessRequest.AddHeader("x-user-token", token);
+            accessRequest.AddHeader("x-user-token", Token);
             accessRequest.RequestFormat = DataFormat.Json;
             accessRequest.AddParameter("Id", id);
             accessRequest.AddParameter("Title", title);
@@ -91,7 +90,7 @@ namespace BookServiceQA.Support_classes
             accessRequest.AddParameter("Price", price);
             accessRequest.AddParameter("Genre", genre);
             accessRequest.AddParameter("AuthorId", authorId);
-            _response = client.Execute(accessRequest);
+            response = client.Execute(accessRequest);
         }
 
         public void PopulateAuthors()

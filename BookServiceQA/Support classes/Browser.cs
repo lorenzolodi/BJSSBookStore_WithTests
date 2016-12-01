@@ -9,23 +9,19 @@ namespace BookServiceQA
 {
     public static class Browser
     {
-        private static IWebDriver _driver;
-        public static string testURL;
-        public static string highestAuthorId;
-        public static string highestBookId;
+        private static IWebDriver driver;
+        public static string TestURL;
 
         public static IWebDriver Driver()
         {
-            testURL = ConfigurationManager.AppSettings["TestURL"];
-            if (_driver == null)
+            TestURL = ConfigurationManager.AppSettings["TestURL"];
+            if (driver == null)
             {
                 ChromeOptions options = new ChromeOptions();
                 options.AddArguments("--disable-extensions");
-                IWebDriver driver = new ChromeDriver(options);
-
-                _driver = driver;
+                driver = new ChromeDriver(options);
             }
-            return _driver;
+            return driver;
         }
 
         public static void AmOnTheBookList()
@@ -85,7 +81,7 @@ namespace BookServiceQA
 
         public static void goToEnvList()
         {
-            Driver().Navigate().GoToUrl(testURL);
+            Driver().Navigate().GoToUrl(TestURL);
             }
 
         public static void goToBookList()

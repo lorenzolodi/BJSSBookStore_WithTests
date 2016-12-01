@@ -11,6 +11,7 @@ using BookServiceQA.Pages;
 
 namespace BookServiceQA
 {
+
     [Binding]
     public class NewBookSteps
     {

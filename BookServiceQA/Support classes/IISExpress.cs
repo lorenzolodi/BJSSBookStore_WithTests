@@ -12,14 +12,14 @@ namespace BookServiceQA.Support_classes
 {
     public class IisExpressWebServer
     {
-        private static WebApplication _application;
-        private static Process _webHostProcess;
+        private static WebApplication application;
+        private static Process webHostProcess;
 
         public IisExpressWebServer(WebApplication application)
         {
             if (application == null)
                 throw new ArgumentNullException("The web application must be set.");
-            _application = application;
+            IisExpressWebServer.application = application;
         }
 
         public void Start(string configTransform = null)
@@ -28,33 +28,33 @@ namespace BookServiceQA.Support_classes
             ProcessStartInfo webHostStartInfo;
             if (configTransform == null)
             {
-                webHostStartInfo = InitializeIisExpress(_application, iisconfig); //Lorenzo
+                webHostStartInfo = InitializeIisExpress(application, iisconfig); //Lorenzo
                 //webHostStartInfo = InitializeIisExpress(_application);
             }
             else
             {
-                var siteDeployer = new MsBuildDeployer(_application.Location);
+                var siteDeployer = new MsBuildDeployer(application.Location);
                 var deployPath = Path.Combine(Environment.CurrentDirectory, "TestSite");
                 siteDeployer.Deploy(configTransform, deployPath);
-                webHostStartInfo = InitializeIisExpress(_application, iisconfig, deployPath);//Start iis from appconfig
+                webHostStartInfo = InitializeIisExpress(application, iisconfig, deployPath);//Start iis from appconfig
                 //webHostStartInfo = InitializeIisExpress(_application, deployPath);
             }
-            _webHostProcess = Process.Start(webHostStartInfo);
-            _webHostProcess.TieLifecycleToParentProcess();
+            webHostProcess = Process.Start(webHostStartInfo);
+            webHostProcess.TieLifecycleToParentProcess();
         }
 
         public void Stop()
         {
-            if (_webHostProcess == null)
+            if (webHostProcess == null)
                 return;
-            if (!_webHostProcess.HasExited)
-                _webHostProcess.Kill();
-            _webHostProcess.Dispose();
+            if (!webHostProcess.HasExited)
+                webHostProcess.Kill();
+            webHostProcess.Dispose();
         }
 
         public string BaseUrl
         {
-            get { return string.Format("http://localhost:{0}", _application.PortNumber); }
+            get { return string.Format("http://localhost:{0}", application.PortNumber); }
         }
 
         //private static ProcessStartInfo InitializeIisExpress(WebApplication application, string deployPath = null)

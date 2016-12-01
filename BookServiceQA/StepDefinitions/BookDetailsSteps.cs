@@ -16,7 +16,6 @@ namespace BookServiceQA
         private string titleName;
         BookListPagePF blPage;
         BookDetailsPagePF bookDetails;
-        //TestEnvironmentsPagePF envPage;
 
         [When]
         public void When_I_click_on_the_Home_link()

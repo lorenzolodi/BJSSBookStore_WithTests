@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Threading;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
-using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 using BookServiceQA.Pages;

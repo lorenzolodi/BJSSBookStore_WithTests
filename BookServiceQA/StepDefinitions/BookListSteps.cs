@@ -1,13 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
+﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
-using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.IE;
 using BookServiceQA.Pages;
 
 namespace BookServiceQA

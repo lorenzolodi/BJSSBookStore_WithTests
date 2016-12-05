@@ -4,6 +4,9 @@ using System.Diagnostics;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
+using BookServiceQA.Support_classes;
 
 namespace BookServiceQA
 {
@@ -11,15 +14,28 @@ namespace BookServiceQA
     {
         private static IWebDriver driver;
         public static string TestURL;
+        static string browserType;
 
         public static IWebDriver Driver()
         {
             TestURL = ConfigurationManager.AppSettings["TestURL"];
+            browserType = ConfigurationManager.AppSettings["Browser"];
             if (driver == null)
             {
-                ChromeOptions options = new ChromeOptions();
-                options.AddArguments("--disable-extensions");
-                driver = new ChromeDriver(options);
+                if (browserType == "Chrome")
+                {
+                    ChromeOptions options = new ChromeOptions();
+                    options.AddArguments("--disable-extensions");
+                    driver = new ChromeDriver(options);
+                }
+                else if (browserType == "IE")
+                {
+                    driver = new InternetExplorerDriver(ProjectLocation.FromFolder("BookServiceQA").FullPath + "\\IEDriverServer32");
+                }
+                else if (browserType == "FireFox")
+                {
+                    driver = new FirefoxDriver();
+                }
             }
             return driver;
         }

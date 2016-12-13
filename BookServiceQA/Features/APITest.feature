@@ -3,6 +3,9 @@
 	In order to avoid silly mistakes
 	I want to be told the sum of two numbers
 
+Background: Fill up book store
+	Given I have three authors and three books in my book store
+
 @API @Declarative
 Scenario: Get all the books
 	Given I have three books in my book store	

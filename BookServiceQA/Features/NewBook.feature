@@ -3,6 +3,8 @@
 	I want to be able to add new books
 	In order to keep the book store interesting
 
+Background: Fill up book store
+	Given I have three authors and three books in my book store
 
 @NewBook @Imperative
 Scenario: Add a new book

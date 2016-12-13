@@ -1,37 +1,43 @@
 ﻿using System;
 using System.Configuration;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.IE;
+using BookServiceQA.Support_classes;
 
 namespace BookServiceQA
 {
     public static class Browser
     {
-        private static IWebDriver _driver;
-        public static String testURL;
-        public static string highestAuthorId;
-        public static string highestBookId;
+        private static IWebDriver driver;
+        public static string TestURL;
+        static string browserType;
 
         public static IWebDriver Driver()
         {
-            testURL = ConfigurationManager.AppSettings["TestURL"];
-            if (_driver == null)
+            TestURL = ConfigurationManager.AppSettings["TestURL"];
+            browserType = ConfigurationManager.AppSettings["Browser"];
+            if (driver == null)
             {
-                ChromeOptions options = new ChromeOptions();
-                options.AddArguments("--disable-extensions");
-                IWebDriver driver = new ChromeDriver(options);
-
-                _driver = driver;
+                if (browserType == "Chrome")
+                {
+                    ChromeOptions options = new ChromeOptions();
+                    options.AddArguments("--disable-extensions");
+                    driver = new ChromeDriver(options);
+                }
+                else if (browserType == "IE")
+                {
+                    driver = new InternetExplorerDriver(ProjectLocation.FromFolder("BookServiceQA").FullPath + "\\IEDriverServer32");
+                }
+                else if (browserType == "FireFox")
+                {
+                    driver = new FirefoxDriver();
+                }
             }
-            return _driver;
+            return driver;
         }
 
         public static void AmOnTheBookList()
@@ -91,14 +97,14 @@ namespace BookServiceQA
 
         public static void goToEnvList()
         {
-            Browser.Driver().Navigate().GoToUrl(testURL);
+            Driver().Navigate().GoToUrl(TestURL);
             }
 
         public static void goToBookList()
         {
             goToEnvList();
-            Browser.Driver().FindElement(By.LinkText("Details")).Click();
-            Browser.AmOnTheBookList();
+            Driver().FindElement(By.LinkText("Details")).Click();
+            //AmOnTheBookList();
         }
     }
 }

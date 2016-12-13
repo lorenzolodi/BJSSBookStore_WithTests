@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="applicationhost_local.config" />
     <None Include="Features\APITest.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>APITest.feature.cs</LastGenOutput>

@@ -1,13 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
+﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
-using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.IE;
 using BookServiceQA.Pages;
 
 namespace BookServiceQA
@@ -41,7 +33,7 @@ namespace BookServiceQA
         [Then]
         public void Then_book_list_is_displayed()
         {
-            Browser.AmOnTheBookList(); //Wait
+            //Browser.AmOnTheBookList(); //Wait
             
             Assert.That(blPage.windowTitle , Is.EqualTo("BJSS Book Store"));    //Window title
             
@@ -53,7 +45,7 @@ namespace BookServiceQA
         [Then]
         public void Then_the_environment_list_screen_is_displayed()
         {
-            Browser.AmOnTheEnvList();
+            //Browser.AmOnTheEnvList();   
             Assert.That(tePage.pageHeader.Text, Is.EqualTo("BJSS Book Store Test Environments"));
         }
     }

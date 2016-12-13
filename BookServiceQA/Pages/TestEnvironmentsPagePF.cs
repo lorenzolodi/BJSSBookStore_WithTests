@@ -1,12 +1,8 @@
-﻿using NUnit;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
 
 namespace BookServiceQA.Pages
 {
@@ -28,6 +24,9 @@ namespace BookServiceQA.Pages
 
         public TestEnvironmentsPagePF(IWebDriver driver)
         {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.TagName("td")));
+
             PageFactory.InitElements(driver, this);
         }
 

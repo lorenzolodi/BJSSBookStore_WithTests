@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using System.Data.Entity;
-using System.Data.SqlClient;
-using System.Configuration;
-using BookService.Controllers;
+﻿using NUnit.Framework;
 using BookServiceQA.Support_classes;
-using BookService.Models;
-using OpenQA.Selenium;
 
 namespace BookServiceQA
 {
@@ -25,6 +14,8 @@ namespace BookServiceQA
             var app = new WebApplication(ProjectLocation.FromFolder("BookService"), 44302);
             WebServer = new IisExpressWebServer(app);
             app.AddEnvironmentVariable("QA");
+            // Modify the applicationhost_local.config to use the correct physical path for the website
+            WebServer.ModifyConfig(app);
             WebServer.Start();
 
             Browser.Driver();
@@ -34,11 +25,11 @@ namespace BookServiceQA
             //dbAccess.PopulateDB();
             //dbAccess.detach();
 
-            TestData dataBuilder = new TestData();
-            dataBuilder.DeleteAllBooks();
-            dataBuilder.DeleteAllAuthors();
-            dataBuilder.PopulateAuthors();
-            dataBuilder.PopulateBooks();
+            //TestData dataBuilder = new TestData();
+            //dataBuilder.DeleteAllBooks();
+            //dataBuilder.DeleteAllAuthors();
+            //dataBuilder.PopulateAuthors();
+            //dataBuilder.PopulateBooks();
         }
 
         [OneTimeTearDown]

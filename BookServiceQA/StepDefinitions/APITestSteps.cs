@@ -2,7 +2,6 @@
 using TechTalk.SpecFlow;
 using RestSharp;
 using Newtonsoft.Json.Linq;
-using NUnit;
 using NUnit.Framework;
 using System.Configuration;
 using BookServiceQA.Support_classes;
@@ -12,26 +11,31 @@ namespace BookServiceQA.StepDefinitions
     [Binding]
     public class APITestSteps
     {
-        private IRestResponse _response;
-        private int authorsCount;
-        private int booksCount;
-        private RestClient client;
+        private IRestResponse response;
         private RestRequest accessRequest;
-        private string bookId;
-        private string authorId;
         private JObject responseObjectList;
         private JArray responseObjectArray;
-        private string firstAuthorId;
-        private string lastAuthorId;
-        private string firstBookId;
-        private string lastBookId;
-        public string token = ConfigurationManager.AppSettings["Token"];
-        private int nextAuthorId = Int32.Parse(Browser.highestAuthorId) + 1;    //HighestAuthorId is the last id of the deleted authors
-        private int nextBookId = Int32.Parse(Browser.highestBookId) + 1;        //HighestBookId is the last id of the deleted books
+        public string Token = ConfigurationManager.AppSettings["Token"];
+        private int nextAuthorId;
+        private int nextBookId;
+
+        public string FirstAuthorId()
+        {
+            response = CallAPI("/api/authors", Method.GET);
+            responseObjectArray = JArray.Parse(response.Content);
+            return responseObjectArray[0]["Id"].ToString();
+        }
+
+        public string FirstBookId()
+        {
+            response = CallAPI("/api/books", Method.GET);
+            responseObjectArray = JArray.Parse(response.Content);
+            return responseObjectArray[0]["Id"].ToString();
+        }
 
         public IRestResponse CallAPI(string apiURL, RestSharp.Method apiMethod, params string[] args)
         {
-            var client = new RestClient(Browser.testURL);
+            var client = new RestClient(Browser.TestURL);
 
             if (apiMethod.ToString() == Method.POST.ToString())
             {
@@ -80,7 +84,7 @@ namespace BookServiceQA.StepDefinitions
                 accessRequest = new RestRequest(apiURL, apiMethod);
             }
 
-            accessRequest.AddHeader("x-user-token", token);
+            accessRequest.AddHeader("x-user-token", Token);
             return client.Execute(accessRequest);
         }
 
@@ -93,27 +97,27 @@ namespace BookServiceQA.StepDefinitions
         [When]
         public void WhenIAccessTheListOfBooks()
         {
-            _response = CallAPI("/api/books", Method.GET);
-            responseObjectArray = JArray.Parse(_response.Content);
+            response = CallAPI("/api/books", Method.GET);
+            responseObjectArray = JArray.Parse(response.Content);
         }
 
         [Then]
         public void ThenAllBooksAreReturned()
         {
-            responseObjectArray = JArray.Parse(_response.Content);
+            responseObjectArray = JArray.Parse(response.Content);
             Assert.That(responseObjectArray.Count, Is.EqualTo(3));
         }
 
         [When]
         public void WhenIAccessABookById()
         {
-            _response = CallAPI("/api/books/"+nextBookId, Method.GET);
+            response = CallAPI("/api/books/"+nextBookId, Method.GET);
         }
 
         [Then]
         public void ThenTheCorrespondingBookIsReturned()
         {
-            responseObjectList = JObject.Parse(_response.Content);
+            responseObjectList = JObject.Parse(response.Content);
             Assert.That(responseObjectList["Id"].ToString(), Is.EqualTo(nextBookId.ToString()));
             Assert.That(responseObjectList.Property("Title").Value.ToString, Is.EqualTo("Promessi Sposi"));
             Assert.That(responseObjectList["AuthorName"].ToString(), Is.EqualTo("Alessandro Manzoni"));
@@ -128,28 +132,26 @@ namespace BookServiceQA.StepDefinitions
         [When]
         public void WhenIAccessAllAuthors()
         {
-            _response = CallAPI("/api/authors", Method.GET);
+            response = CallAPI("/api/authors", Method.GET);
         }
 
         [Then]
         public void ThenAllAuthorsAreReturned()
         {
-            responseObjectArray = JArray.Parse(_response.Content);
+            responseObjectArray = JArray.Parse(response.Content);
             Assert.That(responseObjectArray.Count, Is.EqualTo(3));
-            //var firstBook = responseObjectArray[0];
-            //Assert.That(firstBook["Name"].ToString(), Is.EqualTo("Jane Austen"));
         }
 
         [When]
         public void WhenIAccessAnAuthorById()
         {
-            _response = CallAPI("/api/authors/"+nextAuthorId, Method.GET);
+            response = CallAPI("/api/authors/"+nextAuthorId, Method.GET);
         }
 
         [Then]
         public void ThenTheCorrespondingAuthorIsReturned()
         {
-            responseObjectList = JObject.Parse(_response.Content);
+            responseObjectList = JObject.Parse(response.Content);
             Assert.That(responseObjectList["Id"].ToString(), Is.EqualTo(nextAuthorId.ToString()));
             Assert.That(responseObjectList.Property("Name").Value.ToString(), Is.EqualTo("Alessandro Manzoni"));
         }
@@ -159,14 +161,14 @@ namespace BookServiceQA.StepDefinitions
         {
             nextAuthorId += 3;
             string[] paramArray = new string[] { nextAuthorId.ToString(), "Virgilio" };
-            _response = CallAPI("/api/authors/", Method.POST, paramArray);
+            response = CallAPI("/api/authors/", Method.POST, paramArray);
         }
 
         [Then]
         public void ThenIHaveOneMoreAuthor()
         {
-            _response = _response = CallAPI("/api/authors", Method.GET);
-            responseObjectArray = JArray.Parse(_response.Content);
+            response = response = CallAPI("/api/authors", Method.GET);
+            responseObjectArray = JArray.Parse(response.Content);
             Assert.That(responseObjectArray.Count, Is.EqualTo(4));
         }
 
@@ -175,14 +177,14 @@ namespace BookServiceQA.StepDefinitions
         {   
             nextBookId += 3;
             string[] paramArray = new string[] { nextBookId.ToString(), "Il Conte di Carmagnola", "1819", "200.1", "Tragedy", nextAuthorId.ToString() };
-            _response = CallAPI("/api/books/", Method.POST, paramArray);
+            response = CallAPI("/api/books/", Method.POST, paramArray);
         }
 
         [Then]
         public void ThenIHaveOneMoreBook()
         {
-            _response = _response = CallAPI("/api/books", Method.GET);
-            responseObjectArray = JArray.Parse(_response.Content);
+            response = response = CallAPI("/api/books", Method.GET);
+            responseObjectArray = JArray.Parse(response.Content);
             Assert.That(responseObjectArray.Count, Is.EqualTo(4));
         }
 
@@ -190,14 +192,14 @@ namespace BookServiceQA.StepDefinitions
         public void WhenIUpdateAnAuthor()
         {
             string[] paramArray = new string[] { nextAuthorId.ToString(), "Luigi Pirandello" };
-            _response = CallAPI("/api/authors/", Method.PUT, paramArray);
+            response = CallAPI("/api/authors/", Method.PUT, paramArray);
         }
 
         [Then]
         public void ThenTheAuthorIsCorrectlyUpdated()
         {
-            _response = CallAPI("/api/authors/" + nextAuthorId, Method.GET);
-            responseObjectList = JObject.Parse(_response.Content);
+            response = CallAPI("/api/authors/" + nextAuthorId, Method.GET);
+            responseObjectList = JObject.Parse(response.Content);
             Assert.That(responseObjectList.Property("Name").Value.ToString(), Is.EqualTo("Luigi Pirandello"));
         }
 
@@ -206,15 +208,15 @@ namespace BookServiceQA.StepDefinitions
         {
             int newAuthor = nextAuthorId +1;
             string[] paramArray = new string[] { nextBookId.ToString(), "Convivio", "1307", "516.2", "Trattato", newAuthor.ToString() };
-            _response = CallAPI("/api/books/", Method.PUT, paramArray);
+            response = CallAPI("/api/books/", Method.PUT, paramArray);
         }
 
         [Then]
         public void ThenTheBookIsCorrectlyUpdated()
         {
             int newAuthor = nextAuthorId + 1;
-            _response = CallAPI("/api/books/" + nextBookId, Method.GET);
-            responseObjectList = JObject.Parse(_response.Content);
+            response = CallAPI("/api/books/" + nextBookId, Method.GET);
+            responseObjectList = JObject.Parse(response.Content);
             Assert.That(responseObjectList["Id"].ToString(), Is.EqualTo(nextBookId.ToString()));
             Assert.That(responseObjectList.Property("Title").Value.ToString, Is.EqualTo("Convivio"));
             Assert.That(responseObjectList["Year"].ToString(), Is.EqualTo("1307"));
@@ -226,16 +228,16 @@ namespace BookServiceQA.StepDefinitions
         [Then]
         public void ThenTheAuthorDataIsMatching()
         {
-            _response = CallAPI("/api/authors/" + nextAuthorId, Method.GET);
-            responseObjectList = JObject.Parse(_response.Content);
+            response = CallAPI("/api/authors/" + nextAuthorId, Method.GET);
+            responseObjectList = JObject.Parse(response.Content);
             Assert.That(responseObjectList.Property("Name").Value.ToString(), Is.EqualTo("Virgilio"));
         }
 
         [Then]
         public void ThenTheBookDataIsMatching()
         {
-            _response = CallAPI("/api/books/" + nextBookId, Method.GET);
-            responseObjectList = JObject.Parse(_response.Content);
+            response = CallAPI("/api/books/" + nextBookId, Method.GET);
+            responseObjectList = JObject.Parse(response.Content);
             Assert.That(responseObjectList.Property("Title").Value.ToString(), Is.EqualTo("Il Conte di Carmagnola"));
             Assert.That(responseObjectList.Property("Year").Value.ToString(), Is.EqualTo("1819"));
             Assert.That(responseObjectList.Property("Price").Value.ToString(), Is.EqualTo("200.1"));
@@ -246,36 +248,36 @@ namespace BookServiceQA.StepDefinitions
         [When]
         public void WhenIDeleteAnAuthor()
         {
-            _response = CallAPI("/api/Authors/" + nextAuthorId, Method.DELETE);
+            response = CallAPI("/api/Authors/" + nextAuthorId, Method.DELETE);
         }
 
         [Then]
         public void ThenTheAuthorNoLongerExists()
         {
-            _response = CallAPI("/api/authors", Method.GET);
-            responseObjectArray = JArray.Parse(_response.Content);
+            response = CallAPI("/api/authors", Method.GET);
+            responseObjectArray = JArray.Parse(response.Content);
             Assert.That(responseObjectArray.Count, Is.EqualTo(2));
             
-            _response=CallAPI("/api/authors/" + nextAuthorId, Method.GET);
-            responseObjectList = JObject.Parse(_response.Content);
+            response=CallAPI("/api/authors/" + nextAuthorId, Method.GET);
+            responseObjectList = JObject.Parse(response.Content);
             Assert.That(responseObjectList["ExceptionMessage"].ToString(), Is.EqualTo("Sequence contains no elements"));
         }
 
         [When]
         public void WhenIDeleteABook()
         {
-            _response = CallAPI("/api/Books/" + nextBookId, Method.DELETE);
+            response = CallAPI("/api/Books/" + nextBookId, Method.DELETE);
         }
 
         [Then]
         public void ThenTheBookNoLongerExists()
         {
-            _response = CallAPI("/api/books", Method.GET);
-            responseObjectArray = JArray.Parse(_response.Content);
+            response = CallAPI("/api/books", Method.GET);
+            responseObjectArray = JArray.Parse(response.Content);
             Assert.That(responseObjectArray.Count, Is.EqualTo(2));
 
-            _response = CallAPI("/api/books/" + nextBookId, Method.GET);
-            Assert.That(_response.StatusDescription.ToString(), Is.EqualTo("Not Found"));
+            response = CallAPI("/api/books/" + nextBookId, Method.GET);
+            Assert.That(response.StatusDescription.ToString(), Is.EqualTo("Not Found"));
         }
 
         [Given]
@@ -283,19 +285,31 @@ namespace BookServiceQA.StepDefinitions
         {
             if (yes_no.Equals("without"))
             {
-                _response = CallAPI("/api/Books/" + nextBookId, Method.DELETE);
+                response = CallAPI("/api/Books/" + nextBookId, Method.DELETE);
             }
         }
 
         [Then]
         public void Then_the_author_still_exists()
         {
-            _response = CallAPI("/api/authors/" + nextAuthorId, Method.GET);
-            responseObjectList = JObject.Parse(_response.Content);
+            response = CallAPI("/api/authors/" + nextAuthorId, Method.GET);
+            responseObjectList = JObject.Parse(response.Content);
             Assert.That(responseObjectList["Id"].ToString(), Is.EqualTo(nextAuthorId.ToString()));
             Assert.That(responseObjectList.Property("Name").Value.ToString(), Is.EqualTo("Alessandro Manzoni"));
         }
 
+        [Given]
+        public void Given_I_have_three_authors_and_three_books_in_my_book_store()
+        {
+            TestData dataBuilder = new TestData();
+            dataBuilder.DeleteAllBooks();
+            dataBuilder.DeleteAllAuthors();
+            dataBuilder.PopulateAuthors();
+            dataBuilder.PopulateBooks();
+
+            nextAuthorId = Int32.Parse(FirstAuthorId());
+            nextBookId = Int32.Parse(FirstBookId());
+        }
 
     }
 }

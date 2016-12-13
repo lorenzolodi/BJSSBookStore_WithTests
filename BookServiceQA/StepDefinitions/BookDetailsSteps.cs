@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Threading;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
-using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 using BookServiceQA.Pages;
@@ -16,12 +14,11 @@ namespace BookServiceQA
         private string titleName;
         BookListPagePF blPage;
         BookDetailsPagePF bookDetails;
-        TestEnvironmentsPagePF envPage;
 
         [When]
         public void When_I_click_on_the_Home_link()
         {
-            envPage = bookDetails.ClickHome();
+            blPage = bookDetails.ClickHome();
         }
 
 
@@ -29,8 +26,7 @@ namespace BookServiceQA
         public void Given_I_am_on_the_Book_list_screen()
         {
             Browser.goToBookList();
-            //Browser.AmOnTheBookList();
-            Browser.BookListIsLoaded();
+            //Browser.BookListIsLoaded();
             blPage = new BookListPagePF(Browser.Driver());
         }
         
@@ -121,7 +117,7 @@ namespace BookServiceQA
         public void Given_a_list_of_books()
         {
             Browser.goToBookList();
-            Browser.BookListIsLoaded();
+            //Browser.BookListIsLoaded();
             blPage = new BookListPagePF(Browser.Driver());
         }
 

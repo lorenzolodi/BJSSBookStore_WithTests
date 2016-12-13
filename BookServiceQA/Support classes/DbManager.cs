@@ -77,7 +77,7 @@ namespace BookServiceQA.Support_classes
             {
                 connection.Open();
                 var cmd = connection.CreateCommand();
-                cmd.CommandText = String.Format("exec sp_detach_db '{0}', 'true'", connection.Database);
+                cmd.CommandText = string.Format("exec sp_detach_db '{0}', 'true'", connection.Database);
                 try
                 {
                     cmd.ExecuteNonQuery();
